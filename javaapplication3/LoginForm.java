@@ -239,7 +239,7 @@ public class LoginForm extends javax.swing.JFrame {
         supf.pack();
         supf.setLocationRelativeTo(null);//set position cho jframe
         supf.setDefaultCloseOperation(EXIT_ON_CLOSE);//ham nay khi dong se tat luon 
-        this.dispose();
+        this.setVisible(false);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jTextFieldUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserNameActionPerformed
@@ -260,12 +260,15 @@ public class LoginForm extends javax.swing.JFrame {
                rs = ps.executeQuery();
                if(rs.next()){
              JOptionPane.showMessageDialog(rootPane, "Login");
-                Menu supf = new Menu();
+                ThongTinNhanVien_ThemNV supf = new ThongTinNhanVien_ThemNV ();
                 supf.setVisible(true);//visible jfame 
                 supf.pack();
                 supf.setLocationRelativeTo(null);//set position cho jframe
                 
-                supf.getData();
+                supf.setHeaderTable();
+            //    new ThongTinNhanVien_ThemNV().setVisible(true);
+                
+                supf.show_Nhanvien(); // this method will get the data from database and insert the data to table
                 
           
                 supf.setDefaultCloseOperation(EXIT_ON_CLOSE);//ham nay khi dong se tat luon 

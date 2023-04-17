@@ -1,5 +1,7 @@
 package javaapplication3;
 
+import javax.swing.JButton;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -61,7 +63,10 @@ public class NhanVien {
         public String getChucVu(){
             return this.ChucVu;
         }
-        
+//        public void changeLabel(){
+//             javax.swing.JButton button = ThongTinNhanVien_ThemNV.jButton13;
+//        }
+//        
         
             
 }

@@ -4,9 +4,15 @@ package javaapplication3;
 //import com.sun.jdi.connect.spi.Connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class myConnection {
+    
+    
+    
+    
+    private Connection connection;
     public static Connection getConnection () {
 //        Connection con = null;
 //        try {
@@ -42,4 +48,12 @@ public class myConnection {
             return con;
     
       }
+        public void deleteData(String id, String sqlQuery) throws SQLException {
+            //"DELETE FROM Nhanvien WHERE id = ?"
+        PreparedStatement statement = getConnection().prepareStatement(sqlQuery);
+        statement.setString(1, id);
+        statement.executeUpdate();
+        statement.close();
+    }
+
 }

@@ -78,7 +78,6 @@ public class DanhSachNhanVien extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(1400, 800));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1400, 700));
         setSize(new java.awt.Dimension(1200, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

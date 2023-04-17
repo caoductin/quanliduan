@@ -61,12 +61,12 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 900));
-        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1300, 850));
         setSize(new java.awt.Dimension(1300, 850));
         getContentPane().setLayout(null);
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 60));
+        jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelLogout.setBackground(new java.awt.Color(51, 51, 61));
@@ -234,6 +234,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel3.setBounds(0, 90, 300, 760);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(new javax.swing.border.MatteBorder(null));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel4.setText("X");
@@ -253,7 +254,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(820, Short.MAX_VALUE)
+                .addContainerGap(818, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,6 +273,7 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(jPanel6);
         jPanel6.setBounds(300, 0, 1000, 90);
 
+        jPanel7.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel7.setLayout(null);
 
         jPanel8.setBackground(new java.awt.Color(204, 255, 255));
@@ -307,10 +309,8 @@ public class Menu extends javax.swing.JFrame {
         jPanel7.add(jScrollPane1);
         jScrollPane1.setBounds(50, 220, 800, 150);
 
-        getContentPane().add(jPanel7);
-        jPanel7.setBounds(300, 90, 1000, 810);
-
         jPanel1.setBackground(new java.awt.Color(47, 47, 47));
+        jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
@@ -345,9 +345,9 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,15 +355,19 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(10, 10, 10)))
-                .addGap(0, 23, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(30, 30, 30))
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 300, 90);
+        jPanel7.add(jPanel1);
+        jPanel1.setBounds(330, 90, 300, 90);
+
+        getContentPane().add(jPanel7);
+        jPanel7.setBounds(300, 90, 1000, 810);
 
         getAccessibleContext().setAccessibleDescription("");
 
