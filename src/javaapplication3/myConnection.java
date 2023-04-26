@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class myConnection {
     
@@ -44,6 +45,7 @@ public class myConnection {
                 con = DriverManager.getConnection("jdbc:mysql://localhost/quanliduan", "root", "tincnttk62"); 
             } catch(Exception ex){
                 System.out.print(ex.getMessage());
+                JOptionPane.showMessageDialog( null,"MySQL error: " + ex.getMessage(), "MySQL Error", JOptionPane.ERROR_MESSAGE);
             }
             return con;
     

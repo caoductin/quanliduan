@@ -10,8 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,10 +26,38 @@ import javax.swing.table.DefaultTableModel;
  * @author caoductin
  */
 public class BangChonNhanVien extends javax.swing.JFrame {
+        private JTable table;
+    private int row;
+    private int col;
+    
+    public void setDataFromTable(JTable table ,int row , int col){//lay 
+        this.table = table;
+        this.row = row;
+        this.col = col;
+        
+    }
+    public String tenNhanVien;
+    
+    public void setTenNhanVien(String name){
+        this.tenNhanVien = name ;
+    }
+    public String getTenNhanVien(){
+        
+        return tenNhanVien;
+    }
 
+    public String DatePhanCong = "12-12-2013";
+    public String caLam = "Ca Sang";
+       public void setDate(String date,String caLam){
+           this.DatePhanCong =  date;
+           this.caLam = caLam;
+       }
     /**
+     * 
      * Creates new form BangChonNhanVien
      */
+ 
+    
     
     
        public final void LoadDataIntoBangNhanVien(){
@@ -73,12 +107,12 @@ public class BangChonNhanVien extends javax.swing.JFrame {
 
            
        }
-
+      
   
     public BangChonNhanVien() {
         initComponents();
         ManipulateComponents Thaotac = new ManipulateComponents();
-         Thaotac.setHeaderTableTest(jTableChonNhanVien);
+        Thaotac.setHeaderTableTest(jTableChonNhanVien);
         LoadDataIntoBangNhanVien();
     }
 
@@ -95,7 +129,7 @@ public class BangChonNhanVien extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableChonNhanVien = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        chonbutton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -149,14 +183,10 @@ public class BangChonNhanVien extends javax.swing.JFrame {
             jTableChonNhanVien.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 15)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Chọn");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel2.setOpaque(true);
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+        chonbutton.setText("Chọn");
+        chonbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chonbuttonActionPerformed(evt);
             }
         });
 
@@ -171,16 +201,16 @@ public class BangChonNhanVien extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addComponent(chonbutton)
+                .addGap(44, 44, 44))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
+                .addComponent(chonbutton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -204,6 +234,7 @@ public class BangChonNhanVien extends javax.swing.JFrame {
                  BangPhanCong_Admin navigate = new  BangPhanCong_Admin();
      //   System.out.println("cao duc tin");
                 navigate.setVisible(true);//visible jfame 
+              
                 navigate.pack();
                 navigate.setLocationRelativeTo(null);//set position cho jframe
                navigate.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -218,14 +249,33 @@ public class BangChonNhanVien extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
-        this.pushDateToDatabase();
-        this.dispose();
+    private void chonbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chonbuttonActionPerformed
+                    // TODO add your handling code here:
+
+        NgayPhanCong phancong = new NgayPhanCong();
         
-        
-       
-    }//GEN-LAST:event_jLabel2MouseClicked
+        int row = jTableChonNhanVien.getSelectedRow();//return the row is select
+        int row1 = jTableChonNhanVien.getSelectedRowCount();// return the number of row is select
+   
+
+        if (row1 == 1) {
+            System.out.print("cao duc tin");
+            // User selected a row, perform action
+            phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong);
+            System.out.print(jTableChonNhanVien.getValueAt(row, 0));
+            
+            
+            this.setTenNhanVien((String)jTableChonNhanVien.getValueAt(row, 1));
+            System.out.print(this.getTenNhanVien());
+
+            this.dispose();
+        } else {
+            // User did not select a row, show error message or perform other action
+             System.out.print("no row is ");
+        }
+
+      //  this.dispose();
+    }//GEN-LAST:event_chonbuttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,8 +316,8 @@ public class BangChonNhanVien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton chonbutton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableChonNhanVien;

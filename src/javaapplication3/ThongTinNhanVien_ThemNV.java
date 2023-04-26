@@ -1140,7 +1140,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
              
             //    new ThongTinNhanVien_ThemNV().setVisible(true);
                 
-                ThongTinNhanVien_ThemNV.show_Nhanvien(); // this method will get the data from database and insert the data to table
+              //  ThongTinNhanVien_ThemNV.show_Nhanvien(); // this method will get the data from database and insert the data to table
             }
         });
     }
@@ -1158,12 +1158,11 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
       //  DefaultTableModel tblModel = (DefaultTableModel) jTableEmployee.getModel();
         
         
-        String sql = "INSERT INTO `Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`)"
-                + " VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
         ps = con.prepareStatement(sql);
         ps.setString(1,jTextFieldMaNV.getText());
         ps.setString(2,jTextFieldHoTen.getText());
-         ps.setString(3,jTextFieldCCCD.getText());
+        ps.setString(3,jTextFieldCCCD.getText());
         if (jRadioButtonNam.isSelected()){
             ps.setString(4,jRadioButtonNam.getText());
             

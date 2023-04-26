@@ -61,17 +61,17 @@ public class ManipulateComponents {
     }
      public void setHeaderTableTest(JTable table) {
         
-    Font font = new Font("Arial", Font.BOLD, 18); // create a new Font object
-    table.getTableHeader().setFont(font); // set the font for the header of the JTable
-    table.getTableHeader().setForeground(Color.white); // set the text color of the header
+        Font font = new Font("Arial", Font.BOLD, 18); // create a new Font object
+        table.getTableHeader().setFont(font); // set the font for the header of the JTable
+        table.getTableHeader().setForeground(Color.white); // set the text color of the header
     
     // create a default table cell renderer to set custom properties for the header of the JTable
-    DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer();
-    renderer.setHorizontalAlignment(JLabel.CENTER); // set the horizontal alignment of the label to the center
-   renderer.setOpaque(true);             
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(JLabel.CENTER); // set the horizontal alignment of the label to the center
+        renderer.setOpaque(true);             
         table.getTableHeader().setBackground(Color.red);
-   renderer.setBackground(Color.BLUE); // set the background color of the header
-           table.getTableHeader().setDefaultRenderer(renderer);//set color for header table
+        renderer.setBackground(Color.BLUE); // set the background color of the header
+        table.getTableHeader().setDefaultRenderer(renderer);//set color for header table
       
          table.getTableHeader().setForeground(new Color(7,10,82));
       

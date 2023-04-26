@@ -7,6 +7,15 @@ CREATE TABLE IF NOT EXISTS `quanliduan`.`account` (
   `Phone` VARCHAR(45) NOT NULL,
   `FullName` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`));
+
+SELECT * FROM quanliduan.Nhanvien;
+CREATE TABLE `quanliduan`.`PhanCong` (
+  `MaNV` INT NOT NULL,
+  `CaLam` VARCHAR(40) NOT NULL,
+  `NgayLam` DATE NOT NULL,
+  `TrangThai` VARCHAR(45) DEFAULT 'Chua hoan thanh',
+  PRIMARY KEY (`MaNV`, `CaLam`, `NgayLam`));
+
   
   CREATE TABLE IF NOT EXISTS `quanliduan`.`Nhanvien` (
   `MaNV` INT UNSIGNED NOT NULL,

@@ -265,10 +265,10 @@ public class LoginForm extends javax.swing.JFrame {
                 supf.pack();
                 supf.setLocationRelativeTo(null);//set position cho jframe
                 
-                supf.setHeaderTable();
+              //  supf.setHeaderTable();
             //    new ThongTinNhanVien_ThemNV().setVisible(true);
                 
-                supf.show_Nhanvien(); // this method will get the data from database and insert the data to table
+             //   supf.show_Nhanvien(); // this method will get the data from database and insert the data to table
                 
           
                 supf.setDefaultCloseOperation(EXIT_ON_CLOSE);//ham nay khi dong se tat luon 

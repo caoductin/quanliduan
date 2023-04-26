@@ -16,9 +16,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 public class NgayPhanCong {
+
+            
+    public String NhanVien;
+        
+    
+    
+    
     public  List<String> create7Days(LocalDate a) {
         // Set the start date
         LocalDate startDate = a;
@@ -43,6 +51,17 @@ public class NgayPhanCong {
 //        }
         return next7Days;
     }
+
+    public void getNhanvien(JTable table ,String name, int row ,int col){
+          
+           
+        
+    }
+    
+    
+    
+    
+    
     
     public void setTheTitleOfTable(LocalDate a,JTable jtable){
 //        for(int i=0;i<7;i++){
@@ -55,7 +74,48 @@ public class NgayPhanCong {
         jtable.getTableHeader().repaint();// hàm này giúp update UI ngày lập tức cho header table
         
     }
+    public String changeFormat(String dateStr){// thay đổi định dạng của ngày
+           DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+           DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+           LocalDate date = LocalDate.parse(dateStr, inputFormatter);
+           String outputStr = outputFormatter.format(date);
+             
+           return outputStr;
+    }
     
+    
+    public void InsertPhanCong(String MaNV,String CaLam,String NgayLam){
+        String ngay = this.changeFormat(NgayLam);
+        PreparedStatement ps;
+        ResultSet rs;
+    
+    try {
+            // establish database connection
+           Connection con = myConnection.getConnection();
+
+
+            // create a PreparedStatement to count the rows in the table
+          //  String sql = "INSERT INTO `PhanCong` (`MaNV`, `CaLam`, `NgayLam`"+ " VALUES (?, ?,?)";
+              String sql = "INSERT INTO `PhanCong` (`MaNV`, `CaLam`, `NgayLam`) VALUES (?, ?, ?)";
+
+            ps = con.prepareStatement(sql);
+            
+            ps.setString(1, MaNV);
+            ps.setString(2,CaLam);
+            ps.setString(3,ngay);
+            int numRowsAffected = ps.executeUpdate();
+            if (numRowsAffected > 0) {
+               System.out.println("Insert succeeded.");
+                } else {
+     System.out.println("Insert failed.");
+}
+
+            
+} catch (Exception ex) {
+                  JOptionPane.showMessageDialog( null,"MySQL error: " + ex.getMessage(), "MySQL Error", JOptionPane.ERROR_MESSAGE);
+                
+    } 
+}
     
     
     
