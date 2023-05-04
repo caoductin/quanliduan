@@ -84,10 +84,11 @@ public class NgayPhanCong {
     }
     
     
-    public void InsertPhanCong(String MaNV,String CaLam,String NgayLam){
+    public boolean InsertPhanCong(String MaNV,String CaLam,String NgayLam){
         String ngay = this.changeFormat(NgayLam);
         PreparedStatement ps;
         ResultSet rs;
+        boolean check = true;
     
     try {
             // establish database connection
@@ -106,15 +107,19 @@ public class NgayPhanCong {
             int numRowsAffected = ps.executeUpdate();
             if (numRowsAffected > 0) {
                System.out.println("Insert succeeded.");
+               check = true;
                 } else {
      System.out.println("Insert failed.");
+     check = false;
 }
 
             
 } catch (Exception ex) {
                   JOptionPane.showMessageDialog( null,"MySQL error: " + ex.getMessage(), "MySQL Error", JOptionPane.ERROR_MESSAGE);
+                  check =  false;
                 
     } 
+    return check;
 }
     
     

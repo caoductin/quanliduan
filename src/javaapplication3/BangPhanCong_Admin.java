@@ -675,8 +675,13 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         
         //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
               //  BangChonNhanVien navigate = new BangChonNhanVien();
-                navigate.setDate((String) headerValue,"Ca Toi");// đưa ngày vào trong JFrame Bangchonnhanvien
               
+              
+              
+                navigate.setDate((String) headerValue,"Ca Toi");// đưa ngày vào trong JFrame Bangchonnhanvien
+             
+                
+     
                 
                navigate.addWindowListener(new WindowAdapter() {
                     @Override

@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Menu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,7 +66,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jButtonChonSanPham = new javax.swing.JButton();
         jLabelPhanCong = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -241,15 +242,15 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
             }
         });
 
-        jButton11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/PRODUCT2.png"))); // NOI18N
-        jButton11.setText("Sản Phẩm");
-        jButton11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton11.setIconTextGap(7);
-        jButton11.setPreferredSize(new java.awt.Dimension(147, 47));
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jButtonChonSanPham.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonChonSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/PRODUCT2.png"))); // NOI18N
+        jButtonChonSanPham.setText("Sản Phẩm");
+        jButtonChonSanPham.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButtonChonSanPham.setIconTextGap(7);
+        jButtonChonSanPham.setPreferredSize(new java.awt.Dimension(147, 47));
+        jButtonChonSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jButtonChonSanPhamActionPerformed(evt);
             }
         });
 
@@ -274,7 +275,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
                     .addComponent(jLabelPhanCong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
+                    .addComponent(jButtonChonSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
@@ -286,7 +287,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(96, 96, 96)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonChonSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
@@ -574,7 +575,6 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         });
 
         IDNhanvien.setBackground(new java.awt.Color(51, 255, 0));
-        IDNhanvien.setText("caoductin");
         IDNhanvien.setToolTipText("");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -898,9 +898,19 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void jButtonChonSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChonSanPhamActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
+         ThongTinSanPham_Admin supf = new ThongTinSanPham_Admin ();
+                supf.setVisible(true);//visible jfame 
+                supf.pack();
+                supf.setLocationRelativeTo(null);//set position cho jframe
+                
+             
+                supf.setDefaultCloseOperation(EXIT_ON_CLOSE);//ham nay khi dong se tat luon 
+                this.dispose();
+
+        
+    }//GEN-LAST:event_jButtonChonSanPhamActionPerformed
 
     private void jRadioButtonNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNamActionPerformed
         // TODO add your handling code here:
@@ -1417,7 +1427,6 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1425,6 +1434,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButtonADD;
+    private javax.swing.JButton jButtonChonSanPham;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonSua;
     public javax.swing.JButton jButtonThem;

@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -261,7 +262,10 @@ public class BangChonNhanVien extends javax.swing.JFrame {
         if (row1 == 1) {
             System.out.print("cao duc tin");
             // User selected a row, perform action
-            phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong);
+           // phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong);
+            if( phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong) == false){
+                return ;
+            }
             System.out.print(jTableChonNhanVien.getValueAt(row, 0));
             
             
@@ -271,7 +275,8 @@ public class BangChonNhanVien extends javax.swing.JFrame {
             this.dispose();
         } else {
             // User did not select a row, show error message or perform other action
-             System.out.print("no row is ");
+
+              JOptionPane.showMessageDialog(this, "No row was selected");
         }
 
       //  this.dispose();

@@ -15,7 +15,7 @@ public class DatabaseHelper {
      private Connection connection;
 
     public DatabaseHelper() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://localhost/quanliduan", "root", "1234");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost/quanliduan", "root", "tincnttk62");
     }
 
     public void deleteData(String id,String sqlQuery) throws SQLException {

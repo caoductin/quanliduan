@@ -4,18 +4,91 @@
  */
 package javaapplication3;
 
+import java.awt.Menu;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Le Q. Tien
  */
-public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
+public class ThongTinSanPham_Admin extends javax.swing.JFrame {
 
     /**
      * Creates new form DanhSachNhanVien
      */
-    public ThongTinSanPham_Admin01() {
+    public ThongTinSanPham_Admin() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.show_SanPham();
+    }
+    public void clearTable(){
+        DefaultTableModel model = (DefaultTableModel) jTableSanPham.getModel();
+        model.setRowCount(0);
+    }
+    
+    public ArrayList<SanPham> DanhSachSanPham(){
+
+            ArrayList<SanPham> DanhSachSanPham = new ArrayList();
+                PreparedStatement ps;
+                Statement st;
+                ResultSet rs ;
+            try {
+                 Connection con = myConnection.getConnection();
+                st = con.createStatement();
+                String query1 = "SELECT * FROM SanPham";
+                rs = st.executeQuery(query1);
+                SanPham sanPhamTemp;
+                while(rs.next()){
+                    sanPhamTemp = new SanPham(rs.getInt("MaSanPham"),rs.getString("TenSanPham"), rs.getString("LoaiSanPham"),
+                            rs.getString("ThuongHieu"), rs.getString("NgayNhap"),rs.getInt("SoLuong"), rs.getDouble("Gia"));
+                    
+
+                    DanhSachSanPham.add(sanPhamTemp);//add all data to userlist
+
+
+                
+                        
+           }
+                   } catch (Exception ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return DanhSachSanPham;
+        
+        
+    }
+     public void  show_SanPham(){
+        ArrayList<SanPham> list = DanhSachSanPham();
+    
+        DefaultTableModel model =(DefaultTableModel)jTableSanPham.getModel();
+
+        Object[] row = new Object[10];
+        for(int i=0;i<list.size();i++){
+            row[0] = list.get(i).getMaSanPham();
+            row[1] = list.get(i).getTenSanPham();
+            row[2] = list.get(i).getLoaiSanPham();
+            row[3] = list.get(i).getThuongHieu();
+            row[4] = list.get(i).getSoLuong();
+            row[5] = list.get(i).getGia();
+            row[6] = list.get(i).getNgayNhap();
+         
+        
+            model.addRow (row);
+            
+            
+
+        
+   }
     }
 
     /**
@@ -56,24 +129,24 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
+        jTextFieldGia = new javax.swing.JTextField();
+        jTextFieldSoLuong = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
+        jTextFieldMaSanPham = new javax.swing.JTextField();
+        jTextFieldTenSanPham = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        jTextField18 = new javax.swing.JTextField();
-        jTextField19 = new javax.swing.JTextField();
+        jTextFieldThuongHieu = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        jComboBoxLoaiSanPham = new javax.swing.JComboBox<>();
         jButton6 = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
+        jDateChooserNgayNhap = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableSanPham = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
-        jButton14 = new javax.swing.JButton();
+        jButtonThem = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
@@ -81,8 +154,6 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -386,8 +457,8 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         jLabel21.setFocusable(false);
         jLabel21.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel6.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 110, 25));
-        jPanel6.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 200, 25));
-        jPanel6.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 200, 25));
+        jPanel6.add(jTextFieldGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 200, 25));
+        jPanel6.add(jTextFieldSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 200, 25));
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -404,14 +475,14 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         jLabel25.setFocusable(false);
         jLabel25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel6.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 110, 25));
-        jPanel6.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 200, 25));
+        jPanel6.add(jTextFieldMaSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 200, 25));
 
-        jTextField14.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldTenSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField14ActionPerformed(evt);
+                jTextFieldTenSanPhamActionPerformed(evt);
             }
         });
-        jPanel6.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 200, 25));
+        jPanel6.add(jTextFieldTenSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 200, 25));
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -420,8 +491,7 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         jLabel29.setFocusable(false);
         jLabel29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel6.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 110, 25));
-        jPanel6.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 200, 25));
-        jPanel6.add(jTextField19, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 200, 25));
+        jPanel6.add(jTextFieldThuongHieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 200, 25));
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -439,8 +509,8 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         jLabel31.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel6.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 110, 25));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PC", "Laptop" }));
-        jPanel6.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 200, -1));
+        jComboBoxLoaiSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PC", "Laptop" }));
+        jPanel6.add(jComboBoxLoaiSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 200, -1));
 
         jButton6.setText("Thêm nhân viên");
         jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 570, 120, 30));
@@ -448,6 +518,7 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel22.setText("Thông tin sản phẩm");
         jPanel6.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        jPanel6.add(jDateChooserNgayNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 200, -1));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -464,27 +535,42 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 240, 600, 300));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Thương hiệu", "Số lượng", "Giá", "Ngày nhập"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableSanPham.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTableSanPham);
+        if (jTableSanPham.getColumnModel().getColumnCount() > 0) {
+            jTableSanPham.getColumnModel().getColumn(0).setResizable(false);
+            jTableSanPham.getColumnModel().getColumn(1).setResizable(false);
+            jTableSanPham.getColumnModel().getColumn(2).setResizable(false);
+            jTableSanPham.getColumnModel().getColumn(3).setResizable(false);
+            jTableSanPham.getColumnModel().getColumn(4).setResizable(false);
+            jTableSanPham.getColumnModel().getColumn(5).setResizable(false);
+            jTableSanPham.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 540, 560));
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        jButton14.setText("Thêm");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        jButtonThem.setText("Thêm");
+        jButtonThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                jButtonThemActionPerformed(evt);
             }
         });
 
@@ -515,7 +601,7 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonThem, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -533,7 +619,7 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
                         .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -560,12 +646,6 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 550, 110, 140));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ARROW2.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1360, 540, 40, 160));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ARROW1.png"))); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 540, 40, 160));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -575,6 +655,14 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+         ThongTinNhanVien_ThemNV supf = new ThongTinNhanVien_ThemNV();
+                supf.setVisible(true);//visible jfame 
+                supf.pack();
+                supf.setLocationRelativeTo(null);//set position cho jframe
+                
+             
+                supf.setDefaultCloseOperation(EXIT_ON_CLOSE);//ham nay khi dong se tat luon 
+                this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -598,9 +686,9 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
+    private void jTextFieldTenSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTenSanPhamActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField14ActionPerformed
+    }//GEN-LAST:event_jTextFieldTenSanPhamActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -614,9 +702,57 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void jButtonThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
+        PreparedStatement ps;
+        Statement st;
+        try {
+        
+        //if(Check_Data()){
+          Connection con = myConnection.getConnection();
+        st = con.createStatement();
+      //  DefaultTableModel tblModel = (DefaultTableModel) jTableEmployee.getModel();
+        
+        
+        String sql = "INSERT INTO `SanPham` (`MaSanPham`, `TenSanPham`, `LoaiSanPham`, `ThuongHieu`, `SoLuong`, `Gia`,`NgayNhap`) VALUES (?, ?,?, ?, ?, ?, ?)";
+        ps = con.prepareStatement(sql);
+        ps.setString(1,jTextFieldMaSanPham.getText());
+        ps.setString(2,jTextFieldTenSanPham.getText());
+        ps.setString(3,(String)jComboBoxLoaiSanPham.getSelectedItem());
+        
+        ps.setString(4,jTextFieldThuongHieu.getText());
+            
+      
+       
+        
+        ps.setString(5,jTextFieldSoLuong.getText());
+        ps.setString(6,jTextFieldGia.getText());
+       
+ 
+        SimpleDateFormat sdf1 = new SimpleDateFormat(  "yyyy-MM-dd");
+        String NgayNhapHang = sdf1.format(jDateChooserNgayNhap.getDate());
+
+        ps.setString(7,NgayNhapHang);
+        if(ps.executeUpdate() == 1){//this function will returns a value other than 0 when it execute suscessf . otherwise it return 
+                 JOptionPane.showMessageDialog(this,"You create succesful ");
+                 clearTable(); // delete the duplicate because when you click "Thêm  " then it will be duplicate 
+                // ClearTextField(); // delete the text on  textfield
+                  this.show_SanPham();
+                 }
+                 else {
+                      JOptionPane.showMessageDialog(this,"Something Wrongs");
+                 }
+       // }
+       
+    } catch (Exception ex) {
+        
+        //Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.print(ex);
+        
+    }
+        
+        
+    }//GEN-LAST:event_jButtonThemActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
@@ -647,14 +783,110 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ThongTinSanPham_Admin01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinSanPham_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ThongTinSanPham_Admin01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinSanPham_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ThongTinSanPham_Admin01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinSanPham_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ThongTinSanPham_Admin01.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ThongTinSanPham_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -691,7 +923,7 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ThongTinSanPham_Admin01().setVisible(true);
+                new ThongTinSanPham_Admin().setVisible(true);
             }
         });
     }
@@ -701,7 +933,6 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -710,8 +941,10 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButtonThem;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBoxLoaiSanPham;
+    private com.toedter.calendar.JDateChooser jDateChooserNgayNhap;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel18;
@@ -730,8 +963,6 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -743,15 +974,14 @@ public class ThongTinSanPham_Admin01 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableSanPham;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextFieldGia;
+    private javax.swing.JTextField jTextFieldMaSanPham;
+    private javax.swing.JTextField jTextFieldSoLuong;
+    private javax.swing.JTextField jTextFieldTenSanPham;
+    private javax.swing.JTextField jTextFieldThuongHieu;
     // End of variables declaration//GEN-END:variables
 }
