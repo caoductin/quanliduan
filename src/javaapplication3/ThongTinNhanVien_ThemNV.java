@@ -36,14 +36,37 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         initComponents();
        
         this.setLocationRelativeTo(null);
-        this.show_Nhanvien();
+        this.show_Nhanvien("SELECT * FROM Nhanvien");
          ManipulateComponents Thaotac = new ManipulateComponents();
            Thaotac.setHeaderTableTest(jTableEmployee);
       //   Thaotac.setHeaderTable(jTableEmployee);
        
    
     }
+    
+    
+    //tim kiem
+    public void findDataNhanVien(){
+        
+        String condition = TextFieldID.getText();
+        String HoTen = TextFieldhoTen1.getText();
+        String Chucvu = (String)jComboBox1ChucVu.getSelectedItem();
+        this.clearTable();
 
+        String sql = "SELECT * FROM Nhanvien WHERE 1=1";
+        if (!condition.equals("")) {
+            sql += " AND MaNV LIKE '" + condition + "'";
+        }
+        if (!HoTen.equals("")) {
+            sql += " AND Hoten LIKE '%" + HoTen + "%'";
+        }
+        if (!Chucvu.equals("Không chọn")) {
+            sql += " AND Chucvu = '" + Chucvu + "'";
+        }
+       this.show_Nhanvien(sql);
+        
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,15 +93,13 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jLabelPhanCong = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        TextFieldhoTen = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        TextFieldID = new javax.swing.JTextField();
+        jComboBox1ChucVu = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         TextFieldhoTen1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEmployee = new javax.swing.JTable();
         jPanelThemNV = new javax.swing.JPanel();
@@ -314,48 +335,36 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jPanel4.add(jLabel3);
         jLabel3.setBounds(31, 19, 124, 30);
 
-        TextFieldhoTen.setToolTipText("");
-        TextFieldhoTen.setActionCommand("");
-        TextFieldhoTen.setDisabledTextColor(java.awt.Color.lightGray);
-        TextFieldhoTen.addMouseListener(new java.awt.event.MouseAdapter() {
+        TextFieldID.setToolTipText("");
+        TextFieldID.setActionCommand("");
+        TextFieldID.setDisabledTextColor(java.awt.Color.lightGray);
+        TextFieldID.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TextFieldhoTenMouseEntered(evt);
+                TextFieldIDMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                TextFieldhoTenMouseExited(evt);
+                TextFieldIDMouseExited(evt);
             }
         });
-        TextFieldhoTen.addActionListener(new java.awt.event.ActionListener() {
+        TextFieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldhoTenActionPerformed(evt);
+                TextFieldIDActionPerformed(evt);
             }
         });
-        jPanel4.add(TextFieldhoTen);
-        TextFieldhoTen.setBounds(60, 90, 120, 35);
+        jPanel4.add(TextFieldID);
+        TextFieldID.setBounds(60, 90, 120, 35);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Không chọn", "Nhân viên bán hàng", "Nhân viên sửa chữa" }));
-        jComboBox1.setToolTipText("Chức vụ");
-        jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1ChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Không chọn", "Nhân viên bán hàng", "Nhân viên sửa chữa" }));
+        jComboBox1ChucVu.setToolTipText("Chức vụ");
+        jComboBox1ChucVu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jComboBox1ChucVu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboBox1ChucVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBox1ChucVuActionPerformed(evt);
             }
         });
-        jPanel4.add(jComboBox1);
-        jComboBox1.setBounds(455, 86, 150, 35);
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Không chọn", "Ca sáng", "Ca tối", "Cả Ngày" }));
-        jComboBox2.setToolTipText("Ca làm việc");
-        jComboBox2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jComboBox2);
-        jComboBox2.setBounds(680, 86, 150, 35);
+        jPanel4.add(jComboBox1ChucVu);
+        jComboBox1ChucVu.setBounds(510, 90, 150, 35);
 
         jButton1.setText("Tìm kiếm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -383,7 +392,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
             }
         });
         jPanel4.add(TextFieldhoTen1);
-        TextFieldhoTen1.setBounds(252, 86, 120, 35);
+        TextFieldhoTen1.setBounds(270, 90, 120, 35);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("ID:");
@@ -398,12 +407,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Chức vụ:");
         jPanel4.add(jLabel6);
-        jLabel6.setBounds(390, 94, 59, 17);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("Ca làm:");
-        jPanel4.add(jLabel7);
-        jLabel7.setBounds(623, 94, 51, 17);
+        jLabel6.setBounds(430, 100, 59, 17);
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 1140, 160));
 
@@ -788,13 +792,9 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBox1ChucVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ChucVuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_jComboBox1ChucVuActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -825,21 +825,21 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldhoTen1ActionPerformed
 
-    private void TextFieldhoTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldhoTenActionPerformed
+    private void TextFieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldhoTenActionPerformed
+    }//GEN-LAST:event_TextFieldIDActionPerformed
 
-    private void TextFieldhoTenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldhoTenMouseExited
+    private void TextFieldIDMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldIDMouseExited
         // TODO add your handling code here:
         //        TextFieldhoTen.setText("Nhập ID...");
         //        TextFieldhoTen1.setText("Nhập Tên...");
-    }//GEN-LAST:event_TextFieldhoTenMouseExited
+    }//GEN-LAST:event_TextFieldIDMouseExited
 
-    private void TextFieldhoTenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldhoTenMouseEntered
+    private void TextFieldIDMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldIDMouseEntered
         // TODO add your handling code here:
         //        TextFieldhoTen.setText(" ");
         //        TextFieldhoTen1.setText(" ");
-    }//GEN-LAST:event_TextFieldhoTenMouseEntered
+    }//GEN-LAST:event_TextFieldIDMouseEntered
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -968,7 +968,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(this,"You create succesful ");
                  clearTable(); // delete the duplicate because when you click "Thêm  " then it will be duplicate 
                  ClearTextField(); // delete the text on  textfield
-                  this.show_Nhanvien();
+                  this.show_Nhanvien("SELECT * FROM Nhanvien");
                  }
                  else {
                       JOptionPane.showMessageDialog(this,"Something Wrongs");
@@ -999,9 +999,9 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
      //   jPanelThemNV.setVisible(false);
-       ManipulateComponents manipulate = new ManipulateComponents();
+    //   ManipulateComponents manipulate = new ManipulateComponents();
        //manipulate.hideJPanel(jPanelThemNV);
-       
+       findDataNhanVien();
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1198,7 +1198,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(this,"You create succesful ");
                  clearTable(); // delete the duplicate because when you click "Thêm  " then it will be duplicate 
                  ClearTextField(); // delete the text on  textfield
-                  this.show_Nhanvien();
+                  this.show_Nhanvien("SELECT * FROM Nhanvien");
                  }
                  else {
                       JOptionPane.showMessageDialog(this,"Something Wrongs");
@@ -1238,7 +1238,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     }
 
 
-        public ArrayList<NhanVien> userList(){
+        public ArrayList<NhanVien> userList(String sql){
 
             ArrayList<NhanVien> usersList = new ArrayList();
                 PreparedStatement ps;
@@ -1247,7 +1247,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
             try {
                  Connection con = myConnection.getConnection();
                 st = con.createStatement();
-                String query1 = "SELECT * FROM Nhanvien";
+                String query1 = sql;
                 rs = st.executeQuery(query1);
                 NhanVien nhanvien;
                 while(rs.next()){
@@ -1338,8 +1338,8 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         
         
         
-    public void  show_Nhanvien(){
-        ArrayList<NhanVien> list = userList();
+    public void  show_Nhanvien(String sql){
+        ArrayList<NhanVien> list = userList(sql);
     
         DefaultTableModel model =(DefaultTableModel)jTableEmployee.getModel();
 
@@ -1421,7 +1421,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel IDNhanvien;
     private javax.swing.JTextField PassWordNv;
-    private javax.swing.JTextField TextFieldhoTen;
+    private javax.swing.JTextField TextFieldID;
     private javax.swing.JTextField TextFieldhoTen1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -1438,8 +1438,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonSua;
     public javax.swing.JButton jButtonThem;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox1ChucVu;
     private javax.swing.JComboBox<String> jComboBoxChucVu;
     private com.toedter.calendar.JDateChooser jDateChooserNBD;
     private com.toedter.calendar.JDateChooser jDateChooserNSNV;
@@ -1462,7 +1461,6 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelPhanCong;
     private javax.swing.JPanel jPanel1;

@@ -28,14 +28,14 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
     public ThongTinSanPham_Admin() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.show_SanPham();
+        this.show_SanPham("SELECT * FROM SanPham");
     }
     public void clearTable(){
         DefaultTableModel model = (DefaultTableModel) jTableSanPham.getModel();
         model.setRowCount(0);
     }
     
-    public ArrayList<SanPham> DanhSachSanPham(){
+    public ArrayList<SanPham> DanhSachSanPham(String sql){
 
             ArrayList<SanPham> DanhSachSanPham = new ArrayList();
                 PreparedStatement ps;
@@ -44,7 +44,7 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
             try {
                  Connection con = myConnection.getConnection();
                 st = con.createStatement();
-                String query1 = "SELECT * FROM SanPham";
+                String query1 = sql;
                 rs = st.executeQuery(query1);
                 SanPham sanPhamTemp;
                 while(rs.next()){
@@ -67,8 +67,8 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         
         
     }
-     public void  show_SanPham(){
-        ArrayList<SanPham> list = DanhSachSanPham();
+     public void  show_SanPham(String sql){
+        ArrayList<SanPham> list = DanhSachSanPham(sql);
     
         DefaultTableModel model =(DefaultTableModel)jTableSanPham.getModel();
 
@@ -90,7 +90,49 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         
    }
     }
+     
+     public boolean checkData(){
+      boolean check = true;
+       if (!jTextFieldMaSanPham.getText().matches("[0-9]+")){
+        JOptionPane.showMessageDialog(rootPane, "Ma San Pham  must be a number string");
+        check =  false;
+  
+         }
+       else if(!jTextFieldSoLuong.getText().matches("[0-9]+")){
+           JOptionPane.showMessageDialog(rootPane, "So Luong  must be a number string");
+        check =  false;
+       }
+      
+      return check;
+     }
+     
+     
+     public void FindSanPham(){
+      String MaSP = jTextFieldMaSP.getText();
+      String TenSP = jTextFieldTenSP.getText();
+      String LoaiSanPham = (String)jComboBoxLoaiSP.getSelectedItem();
+      String ThuongHieu = jTextFieldTH.getText();
+        this.clearTable();
 
+        String sql = "SELECT * FROM SanPham WHERE 1=1";
+        if (!MaSP.equals("")) {
+            sql += " AND MaSanPham LIKE '%" + MaSP + "%'";
+        }
+        if (!TenSP.equals("")) {
+            sql += " AND TenSanPham LIKE '%" + TenSP + "%'";
+        }
+        if (!LoaiSanPham.equals("ALL")) {
+            sql += " AND LoaiSanPham = '" + LoaiSanPham + "'";
+        }
+        if(!ThuongHieu.equals("")){
+          
+            sql += " AND ThuongHieu = '" + ThuongHieu + "'";
+
+        }
+            
+       this.show_SanPham(sql);
+         
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,13 +158,13 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldMaSP = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTextFieldTenSP = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxLoaiSP = new javax.swing.JComboBox<>();
         jLabel33 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTextFieldTH = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
@@ -349,9 +391,9 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         jLabel26.setFocusable(false);
         jLabel26.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldMaSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldMaSPActionPerformed(evt);
             }
         });
 
@@ -369,10 +411,10 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         jLabel32.setFocusable(false);
         jLabel32.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxLoaiSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laptop", "PC", "ALL" }));
+        jComboBoxLoaiSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxLoaiSPActionPerformed(evt);
             }
         });
 
@@ -395,19 +437,19 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxLoaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldTH, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
@@ -417,16 +459,16 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxLoaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldTH, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37))
         );
@@ -475,6 +517,12 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         jLabel25.setFocusable(false);
         jLabel25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel6.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 110, 25));
+
+        jTextFieldMaSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldMaSanPhamActionPerformed(evt);
+            }
+        });
         jPanel6.add(jTextFieldMaSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 200, 25));
 
         jTextFieldTenSanPham.addActionListener(new java.awt.event.ActionListener() {
@@ -690,16 +738,17 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTenSanPhamActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldMaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMaSPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldMaSPActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBoxLoaiSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLoaiSPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBoxLoaiSPActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        this.FindSanPham();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemActionPerformed
@@ -737,7 +786,7 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(this,"You create succesful ");
                  clearTable(); // delete the duplicate because when you click "Thêm  " then it will be duplicate 
                 // ClearTextField(); // delete the text on  textfield
-                  this.show_SanPham();
+                  this.show_SanPham("SELECT * FROM SanPham");
                  }
                  else {
                       JOptionPane.showMessageDialog(this,"Something Wrongs");
@@ -765,6 +814,10 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jTextFieldMaSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMaSanPhamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldMaSanPhamActionPerformed
 
     /**
      * @param args the command line arguments
@@ -942,7 +995,7 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButtonThem;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxLoaiSP;
     private javax.swing.JComboBox<String> jComboBoxLoaiSanPham;
     private com.toedter.calendar.JDateChooser jDateChooserNgayNhap;
     private javax.swing.JLabel jLabel1;
@@ -975,12 +1028,12 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableSanPham;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextFieldGia;
+    private javax.swing.JTextField jTextFieldMaSP;
     private javax.swing.JTextField jTextFieldMaSanPham;
     private javax.swing.JTextField jTextFieldSoLuong;
+    private javax.swing.JTextField jTextFieldTH;
+    private javax.swing.JTextField jTextFieldTenSP;
     private javax.swing.JTextField jTextFieldTenSanPham;
     private javax.swing.JTextField jTextFieldThuongHieu;
     // End of variables declaration//GEN-END:variables
