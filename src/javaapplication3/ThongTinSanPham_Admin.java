@@ -91,15 +91,20 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
    }
     }
      
-     public boolean checkData(){
+     public boolean Check_Data(){
       boolean check = true;
-       if (!jTextFieldMaSanPham.getText().matches("[0-9]+")){
-        JOptionPane.showMessageDialog(rootPane, "Ma San Pham  must be a number string");
+      if(jTextFieldMaSanPham.getText().equals("") || jTextFieldTenSanPham.getText().equals("") || jTextFieldThuongHieu.getText().equals("")
+              || jTextFieldSoLuong.getText().equals("")||jTextFieldGia.getText().equals("") || !jDateChooserNgayNhap.isEnabled()){
+              JOptionPane.showMessageDialog(null,"Bạn phải điền đầy đủ tất cả các thông tin của Sản Pham");
+               check= false;
+      }
+      else if (!jTextFieldMaSanPham.getText().matches("[0-9]+")){
+        JOptionPane.showMessageDialog(rootPane, "Ma San PHam phải chỉ là kí tự số  ");
         check =  false;
   
          }
        else if(!jTextFieldSoLuong.getText().matches("[0-9]+")){
-           JOptionPane.showMessageDialog(rootPane, "So Luong  must be a number string");
+           JOptionPane.showMessageDialog(rootPane, "So Luong  phải là kí tự số ");
         check =  false;
        }
       
@@ -757,7 +762,7 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         Statement st;
         try {
         
-        //if(Check_Data()){
+        if(Check_Data()){
           Connection con = myConnection.getConnection();
         st = con.createStatement();
       //  DefaultTableModel tblModel = (DefaultTableModel) jTableEmployee.getModel();
@@ -791,12 +796,13 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
                  else {
                       JOptionPane.showMessageDialog(this,"Something Wrongs");
                  }
-       // }
+        }
        
     } catch (Exception ex) {
         
         //Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        System.out.print(ex);
+        JOptionPane.showMessageDialog( null,"MySQL error: " + ex.getMessage(), "MySQL Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println(ex);
         
     }
         
@@ -809,6 +815,32 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
+        try {
+        String sqlQuery = "DELETE FROM Nhanvien WHERE MaNV = ?";
+        DatabaseHelper dbHelper = new DatabaseHelper();
+        
+        // Call the deleteData() method with the appropriate id parameter to delete the row(s) from the table
+        dbHelper.deleteData(jTextFieldMaSanPham.getText(),sqlQuery);
+        
+        // Close the database connection when you are finished
+        System.out.print(jTextFieldMaSanPham.getText());
+        dbHelper.close();
+        
+        //delete the seleted row of the table
+        DefaultTableModel  tblModel = (DefaultTableModel) jTableSanPham.getModel();
+        if(jTableSanPham.getSelectedColumnCount()== 1 ){// it return the number of the selected row
+            //if the single row is selected than delete
+            tblModel.removeRow(jTableSanPham.getSelectedRow());
+           
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "this table now is empty");
+        }
+        
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed

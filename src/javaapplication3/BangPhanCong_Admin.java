@@ -96,7 +96,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonNhanvien = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -215,19 +215,19 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/DSNV2.png"))); // NOI18N
-        jButton3.setText("Nhân Viên");
-        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton3.setIconTextGap(5);
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonNhanvien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonNhanvien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/DSNV2.png"))); // NOI18N
+        jButtonNhanvien.setText("Nhân Viên");
+        jButtonNhanvien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButtonNhanvien.setIconTextGap(5);
+        jButtonNhanvien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                jButtonNhanvienMouseClicked(evt);
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonNhanvien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonNhanvienActionPerformed(evt);
             }
         });
 
@@ -267,7 +267,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(jButtonNhanvien, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel3Layout.setVerticalGroup(
@@ -283,7 +283,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(16, 16, 16)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonNhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(647, Short.MAX_VALUE)))
         );
 
@@ -497,7 +497,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonNhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNhanvienActionPerformed
                 ThongTinNhanVien_ThemNV navigate = new   ThongTinNhanVien_ThemNV();
      //   System.out.println("cao duc tin");
                 navigate.setVisible(true);//visible jfame 
@@ -506,7 +506,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
                navigate.setDefaultCloseOperation(EXIT_ON_CLOSE);
                this.dispose();
             
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonNhanvienActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -706,9 +706,9 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jTablePhanCongCaToiMouseClicked
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void jButtonNhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNhanvienMouseClicked
      
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_jButtonNhanvienMouseClicked
 
     /**
      * @param args the command line arguments
@@ -754,13 +754,13 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButtonLapLich;
+    private javax.swing.JButton jButtonNhanvien;
     private com.toedter.calendar.JDateChooser jDateChooserLaplich;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
