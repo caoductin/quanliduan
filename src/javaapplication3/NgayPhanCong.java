@@ -84,7 +84,7 @@ public class NgayPhanCong {
     }
     
     
-    public boolean InsertPhanCong(String MaNV,String CaLam,String NgayLam){
+    public boolean InsertPhanCong(String MaNV,String CaLam,String NgayLam,int NumberOfRows){
         String ngay = this.changeFormat(NgayLam);
         PreparedStatement ps;
         ResultSet rs;
@@ -104,6 +104,7 @@ public class NgayPhanCong {
             ps.setString(1, MaNV);
             ps.setString(2,CaLam);
             ps.setString(3,ngay);
+            
             int numRowsAffected = ps.executeUpdate();
             if (numRowsAffected > 0) {
                System.out.println("Insert succeeded.");

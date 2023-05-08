@@ -5,6 +5,9 @@
 package javaapplication3;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +27,90 @@ import javax.swing.table.TableModel;
 public class BangPhanCong_Admin extends javax.swing.JFrame {
 
      BangChonNhanVien navigate = new BangChonNhanVien();
-
+      public String changeFormat(String dateStr){// thay đổi định dạng của ngày
+           DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+           DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+           LocalDate date = LocalDate.parse(dateStr, inputFormatter);
+           String outputStr = outputFormatter.format(date);
+             
+           return outputStr;
+    }
+//    
+//      
+//     public void LoadNhanVienVaoBangPhanCong(JTable NameTable){
+//        
+//           
+//             String[] cols = { "Date", "MaNV", "TenNhanVien" };
+//     //  DefaultTableModel model = new DefaultTableModel(cols, 0);
+//      DefaultTableModel model =  (DefaultTableModel)NameTable.getModel();
+//       try {
+//           // Create a connection to MySQL database
+//          Connection conn = myConnection.getConnection();
+//
+//           // Prepare a SQL statement to retrieve required columns' data matching the date criteria
+//           String sql = """
+//                        SELECT Hoten, NgayLam FROM quanliduan.PhanCong 
+//                        join quanliduan.Nhanvien on Nhanvien.MaNV = PhanCong.MaNV
+//                        Where PhanCong.NgayLam = ? and CaLam = 'Ca Sang'""";
+//           PreparedStatement ps = conn.prepareStatement(sql);
+//
+//           // Set the date parameter to match the header table dates
+//           for (int col = 0; col < NameTable.getColumnCount(); col++) {
+//               
+//               TableColumnModel columnModel = NameTable.getColumnModel(); 
+//               TableColumn column = columnModel.getColumn(col);  // Get the column at the i-th index
+//               Object headerValue = column.getHeaderValue();  // Get the header value for the column
+//               System.out.println(changeFormat((String)headerValue));  // print out the column header 
+//                
+//               ps.setString(1, changeFormat((String)headerValue));
+//               ResultSet rs = ps.executeQuery();
+//
+//               // Populate the DefaultTableModel with retrieved data
+//              int rowIndex = 0 ;
+//               while (rs.next()) { 
+//                   
+//               
+////                   String date = rs.getString("Date");
+////                   String manv = rs.getString("MaNV");
+//                   String tennv = rs.getString("Hoten");
+//                   
+//                   
+//
+//                // Loop through the rows of the table and add data to the desired column
+//                
+//                   
+//                    model.setValueAt(tennv, rowIndex, col);
+//                    rowIndex++;
+//                
+//               //  model.addRow(new Object[] { null, tennv });
+//                  
+//               }
+//           }
+//           //Set the DefaultTableModel as the model for the JTable
+//        //jTablePhancongCaSang.setModel(model);
+//           // Close the database connection
+//           conn.close();
+//       } catch (Exception e) {
+//           e.printStackTrace();
+//       }
+//
+//     }
+     
+     public void LoadNVIntoBangPhancong(){ // this function will load the Nhanvien into bang phan cong if Nhanvien have jobs
+      XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+      thaoTac.setTableIsNull(jTablePhancongCaSang);
+      thaoTac.setTableIsNull(jTablePhanCongCaChieu);
+       thaoTac.setTableIsNull(jTablePhanCongCaToi);
+       
+      thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhancongCaSang,"Ca Sang");
+      thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaChieu,"Ca Chieu");
+      thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaToi,"Ca Toi");
+         
+         
+         
+     }
+     
+     
     public void setDataForTable(String name,int row, int col,JTable table){
         table.setValueAt(name, row, col);
     }
@@ -71,6 +157,9 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
           new ManipulateComponents().setHeaderTableTest(jTablePhancongCaSang);
         this.setLocationRelativeTo(null);
         this.SetDateForTable(LocalDate.now());
+        //this.LoadNhanVienVaoBangPhanCong(jTablePhancongCaSang);
+        LoadNVIntoBangPhancong();
+      
         
     }
 
@@ -536,6 +625,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();// hàm này chuyển  tu Date form Jdate sang  localDate
        // System.out.println("Selected date: " + localDate);
            this.SetDateForTable(localDate);
+           this.LoadNVIntoBangPhancong();
 } else {
         System.out.println("No date selected yet.");
 }
@@ -577,10 +667,12 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
                               int row = jTablePhancongCaSang.getSelectedRow();
                                 int column = jTablePhancongCaSang.getSelectedColumn();
                 // This method is called when the SecondJFrame is closed
-                       // jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
-                        //updateUI();
-                        jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
 
+                        //jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
+                         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+                         
+                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhancongCaSang,"Ca Sang");
+                       
             }
         });
                      navigate.setVisible(true);//visible jfame 
@@ -634,9 +726,12 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
                               int row = jTablePhanCongCaChieu.getSelectedRow();
                                 int column = jTablePhanCongCaChieu.getSelectedColumn();
                 // This method is called when the SecondJFrame is closed
-                       // jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
-                        //updateUI();
-                        jTablePhanCongCaChieu.setValueAt(navigate.tenNhanVien, row, column);
+                      
+                
+                      //  jTablePhanCongCaChieu.setValueAt(navigate.tenNhanVien, row, column);
+                        XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+                         
+                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaChieu,"Ca Chieu");
 
             }
         });
@@ -666,7 +761,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
               int index = jTablePhanCongCaToi.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
               TableColumn column1 = columnModel.getColumn(index); // get the TableColumn at the specified index
               Object headerValue = column1.getHeaderValue(); // get the header value of the column
-           //   System.out.println("Header value of column " + index + ": " + headerValue); //print
+             // System.out.println("Header value of column " + index + ": " + headerValue); //print
              
              
           
@@ -689,9 +784,10 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
                               int row = jTablePhanCongCaToi.getSelectedRow();
                                 int column = jTablePhanCongCaToi.getSelectedColumn();
                 // This method is called when the SecondJFrame is closed
-                       // jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
-                        //updateUI();
-                        jTablePhanCongCaToi.setValueAt(navigate.tenNhanVien, row, column);
+                       
+                      XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+                         
+                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaToi,"Ca Toi");
 
             }
         });

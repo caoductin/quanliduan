@@ -4,6 +4,7 @@
  */
 package javaapplication3;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,14 +14,22 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -109,12 +118,81 @@ public class BangChonNhanVien extends javax.swing.JFrame {
            
        }
       
+       
+    public String changeFormat(String dateStr){// thay đổi định dạng của ngày
+           DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+           DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+           LocalDate date = LocalDate.parse(dateStr, inputFormatter);
+           String outputStr = outputFormatter.format(date);
+             
+           return outputStr;
+    }
+    
+    public void sortTable(String selectItem){
+            TableModel model = jTableChonNhanVien.getModel();
+
+            // Create a TableRowSorter based on the table's model
+            TableRowSorter<TableModel> sorter = new TableRowSorter<>(model);
+
+            // Set the sort keys based on the desired columns and sort order
+            List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+            if(selectItem.equals("theo Tên")){
+            sortKeys.add(new RowSorter.SortKey(0, SortOrder.ASCENDING)); // Sort by column 1 in ascending order
+            }
+            else if(selectItem.equals("theo mã")){
+                sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING)); // Sort by column 1 in ascending order
+            }
+            else if(selectItem.equals("theo chức vụ")){
+                sortKeys.add(new RowSorter.SortKey(2, SortOrder.ASCENDING)); // Sort by column 1 in ascending order
+            }
+            sorter.setSortKeys(sortKeys);
+
+            // Attach the sorter to the table
+            jTableChonNhanVien.setRowSorter(sorter);
+
+        
+    }
+    public void changeData(){
+        jComboBoxSapXep.addActionListener(e -> {
+          
+            // Get the selected value from the combobox
+            String selectedValue = (String) jComboBoxSapXep.getSelectedItem();
+
+            // Sort the table based on the selected value
+            sortTable(selectedValue);
+        });   
+    }
+ 
+    
+        
+//    JComboBox<String> comboBox = new JComboBox<>();
+//List<String> dataList = new ArrayList<>();
+//
+//// Add an ActionListener to the JComboBox
+//    jComboBoxSapXep.addActionListener(new ActionListener() {
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        // Get the current selected item from the JComboBox
+//        String selectedItem = (String) comboBox.getSelectedItem();
+//        
+//        // Sort the data list based on the selected item 
+//        if ("Ascending".equals(selectedItem)) {
+//            Collections.sort(dataList);
+//        } else if ("Descending".equals(selectedItem)) {
+//            Collections.sort(dataList, Collections.reverseOrder());
+//        }
+//        
+//        // Update the JTable using DefaultTableModel or any custom TableModel implementation
+//        updateTable(dataList);
+//    }
+//});
   
     public BangChonNhanVien() {
         initComponents();
         ManipulateComponents Thaotac = new ManipulateComponents();
         Thaotac.setHeaderTableTest(jTableChonNhanVien);
         LoadDataIntoBangNhanVien();
+        changeData();
     }
 
     /**
@@ -131,6 +209,8 @@ public class BangChonNhanVien extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableChonNhanVien = new javax.swing.JTable();
         chonbutton = new javax.swing.JButton();
+        jComboBoxSapXep = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -191,26 +271,39 @@ public class BangChonNhanVien extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxSapXep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "theo Tên", "theo mã", "theo chức vụ" }));
+        jComboBoxSapXep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSapXepActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Sắp Xếp");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxSapXep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(chonbutton)
                 .addGap(44, 44, 44))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(chonbutton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chonbutton)
+                    .addComponent(jComboBoxSapXep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -255,17 +348,40 @@ public class BangChonNhanVien extends javax.swing.JFrame {
 
         NgayPhanCong phancong = new NgayPhanCong();
         
-        int row = jTableChonNhanVien.getSelectedRow();//return the row is select
+        int row2 = jTableChonNhanVien.getSelectedRow();//return the row is select
+        int[] selectedRows = jTableChonNhanVien.getSelectedRows();
+        
         int row1 = jTableChonNhanVien.getSelectedRowCount();// return the number of row is select
-   
+       
 
-        if (row1 == 1) {
+        if (row2 != -1) {
             System.out.print("cao duc tin");
-            // User selected a row, perform action
-           // phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong);
-            if( phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong) == false){
-                return ;
+            
+            try {
+                Connection conn = myConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                 String sql = "INSERT INTO `PhanCong` (`MaNV`, `CaLam`, `NgayLam`) VALUES (?, ?, ?)";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                for (int i = 0; i < selectedRows.length; i++) {
+                    int row = selectedRows[i];
+                    ps.setString(1, jTableChonNhanVien.getValueAt(row, 0).toString());
+                    ps.setString(2, this.caLam);
+                    ps.setString(3, changeFormat(DatePhanCong));
+                    ps.addBatch();
+                }
+                ps.executeBatch();
+                conn.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog( null,"MySQL error: " + ex.getMessage(), "MySQL Error", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            
+                
             }
+            // User selected a row, perform action
+          
+//            if( phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong,selectedRows.length) == false){
+//                return ;
+//            }
             System.out.print(jTableChonNhanVien.getValueAt(row, 0));
             
             
@@ -281,6 +397,10 @@ public class BangChonNhanVien extends javax.swing.JFrame {
 
       //  this.dispose();
     }//GEN-LAST:event_chonbuttonActionPerformed
+
+    private void jComboBoxSapXepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSapXepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxSapXepActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,7 +442,9 @@ public class BangChonNhanVien extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton chonbutton;
+    private javax.swing.JComboBox<String> jComboBoxSapXep;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableChonNhanVien;

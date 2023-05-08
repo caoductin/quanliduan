@@ -422,6 +422,7 @@ public class BangNVLamViecTrongNgay extends javax.swing.JFrame {
     private void TextFieldhoTenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldhoTenMouseEntered
         // TODO add your handling code here:
         //        TextFieldhoTen.setText(" ");
+        
         //        TextFieldhoTen1.setText(" ");
     }//GEN-LAST:event_TextFieldhoTenMouseEntered
 
@@ -517,6 +518,8 @@ public class BangNVLamViecTrongNgay extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BangNVLamViecTrongNgay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

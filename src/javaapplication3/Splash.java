@@ -124,6 +124,8 @@ public class Splash extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         Splash Mysplash = new  Splash();

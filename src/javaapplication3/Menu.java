@@ -537,6 +537,32 @@ public class Menu extends javax.swing.JFrame {
 //            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //     
+
+//        Connection con = myConnection.getConnection();
+//        PreparedStatement ps;
+//        Statement st;
+//        try {
+//            st = con.createStatement();
+//            String sql  = "select * from account";
+//            ResultSet rs = st.executeQuery(sql);
+//            while(rs.next()){
+//                String id = String.valueOf(rs.getInt("id"));
+//                String username = rs.getString("userName");
+//                String  passWord = rs.getString("Password");
+//                String gender = rs.getString("Gender");
+//                String Phone =rs.getString("Phone");
+//                String fullName = rs.getString("FullName");
+//                String tbData[] ={id ,username,passWord,gender,Phone,fullName};
+//             //   DefaultTableModel tblModel = (DefaultTableModel)jTableUser.getModel();
+//                DefaultTableModel tblModel = (DefaultTableModel)jTableUser.getModel();
+//                
+//                tblModel.addRow(tbData);
+//                
+//            }
+//        } catch (Exception ex) {
+//            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//     
         
         
         
@@ -566,6 +592,8 @@ public class Menu extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
