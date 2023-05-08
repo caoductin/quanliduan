@@ -12,6 +12,22 @@ public class HoaDon {
         this.MaHD = MaHD;
         this.NgayLap = NgayLap;
     }
+
+    public int getMaHD() {
+        return MaHD;
+    }
+
+    public Date getNgayLap() {
+        return NgayLap;
+    }
+
+    public void setMaHD(int MaHD) {
+        this.MaHD = MaHD;
+    }
+
+    public void setNgayLap(Date NgayLap) {
+        this.NgayLap = NgayLap;
+    }
     
     
 }
