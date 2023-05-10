@@ -873,6 +873,9 @@
             <Component class="javax.swing.JTextField" name="jTextFieldSDT">
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldDiaChi">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldDiaChiActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel24">
               <Properties>

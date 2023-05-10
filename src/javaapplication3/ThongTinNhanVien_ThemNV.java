@@ -333,7 +333,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("Nhân viên");
         jPanel4.add(jLabel3);
-        jLabel3.setBounds(31, 19, 124, 30);
+        jLabel3.setBounds(31, 19, 114, 32);
 
         TextFieldID.setToolTipText("");
         TextFieldID.setActionCommand("");
@@ -397,17 +397,17 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("ID:");
         jPanel4.add(jLabel4);
-        jLabel4.setBounds(31, 94, 18, 17);
+        jLabel4.setBounds(31, 94, 16, 20);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Họ Tên:");
         jPanel4.add(jLabel5);
-        jLabel5.setBounds(193, 94, 53, 17);
+        jLabel5.setBounds(193, 94, 47, 20);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Chức vụ:");
         jPanel4.add(jLabel6);
-        jLabel6.setBounds(430, 100, 59, 17);
+        jLabel6.setBounds(430, 100, 52, 20);
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 1140, 160));
 
@@ -492,6 +492,12 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jLabel22.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel22.setFocusable(false);
         jLabel22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jTextFieldDiaChi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDiaChiActionPerformed(evt);
+            }
+        });
 
         jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -711,7 +717,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         );
 
         jPanelThemNV.add(jPanel6);
-        jPanel6.setBounds(6, 35, 897, 295);
+        jPanel6.setBounds(6, 35, 897, 298);
         jPanelThemNV.add(jTextField17);
         jTextField17.setBounds(1631, 202, 200, 25);
 
@@ -1078,6 +1084,10 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLabelPhanCongMouseClicked
 
+    private void jTextFieldDiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDiaChiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDiaChiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1211,9 +1221,9 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
                 rs = st.executeQuery(query1);
                 NhanVien nhanvien;
                 while(rs.next()){
-                    nhanvien = new NhanVien(rs.getInt("MaNV"), rs.getString("Hoten") ,rs.getString("CCCD"), rs.getString("Gioitinh"), rs.getString("Ngaysinh"),rs.getString("DiaChi")
+                    nhanvien = new NhanVien(rs.getInt("MaNV"), rs.getString("Hoten") ,rs.getString("CCCD"), rs.getString("Gioitinh"), rs.getDate("Ngaysinh"),rs.getString("DiaChi")
 
-                    ,rs.getString("ChucVu"), rs.getString("SDT"), rs.getString("PassWord"),rs.getString("NgayBatDau"));
+                    ,rs.getString("ChucVu"), rs.getString("SDT"), rs.getString("PassWord"),rs.getDate("NgayBatDau"));
 
 
 

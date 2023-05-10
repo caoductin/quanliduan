@@ -1,21 +1,13 @@
 package javaapplication3;
 
-import javax.swing.JButton;
+import java.util.Date;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author caoductin
- */
 public class NhanVien {
         private int MaNV;
-        private String Hoten, CCCD, Gioitinh, DiaChi, ChucVu,SDT,PassWord,NgayBatdau, Ngaysinh;
-        public NhanVien(int MaNV, String Hoten ,String CCCD, String Gioitinh, String Ngaysinh,String DiaChi
-                ,String ChucVu, String SDT, String PassWord,String NgayBatDau){
+        private String Hoten, CCCD, Gioitinh, DiaChi, ChucVu,SDT,PassWord;
+        private Date Ngaysinh, NgayBatDau;
+        public NhanVien(int MaNV, String Hoten ,String CCCD, String Gioitinh, Date Ngaysinh,String DiaChi
+                ,String ChucVu, String SDT, String PassWord,Date NgayBatDau){
             this.MaNV = MaNV;
             this.Hoten = Hoten;
             this.CCCD = CCCD;
@@ -25,7 +17,7 @@ public class NhanVien {
             this.ChucVu = ChucVu;
             this.SDT = SDT;
             this.PassWord = PassWord;
-            this.NgayBatdau = NgayBatDau;
+            this.NgayBatDau = NgayBatDau;
             
                     
         }
@@ -44,7 +36,7 @@ public class NhanVien {
         public String getHoten(){
             return this.Hoten;
         }
-        public String getNgaySinh(){
+        public Date getNgaySinh(){
             return this.Ngaysinh;
         }
         public String getSDT(){
@@ -54,8 +46,8 @@ public class NhanVien {
             return this.PassWord;
         }
        
-        public String getNgayBatDau(){
-            return this.NgayBatdau;
+        public Date getNgayBatDau(){
+            return this.NgayBatDau;
         }
         public String getDiaChi(){
             return this.DiaChi;

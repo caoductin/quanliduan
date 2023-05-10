@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-
 public class HoaDon extends javax.swing.JFrame {
 
     
@@ -18,6 +17,7 @@ public class HoaDon extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.show_SanPham("SELECT * FROM SanPham");
+        this.ShowTenNV();
     }
     public void clearTable(){
         DefaultTableModel model = (DefaultTableModel) jTableSanPham.getModel();
@@ -37,7 +37,7 @@ public class HoaDon extends javax.swing.JFrame {
                 SanPham sanPhamTemp;
                 while(rs.next()){
                     sanPhamTemp = new SanPham(rs.getInt("MaSanPham"),rs.getString("TenSanPham"), rs.getString("LoaiSanPham"),
-                            rs.getString("ThuongHieu"), rs.getString("NgayNhap"),rs.getInt("SoLuong"), rs.getDouble("Gia"));
+                            rs.getString("ThuongHieu"), rs.getString("NgayNhap"),rs.getInt("SoLuong"), rs.getDouble("GiaBan"));
                     
 
                     DanhSachSanPham.add(sanPhamTemp);//add all data to userlist
@@ -54,6 +54,27 @@ public class HoaDon extends javax.swing.JFrame {
         return DanhSachSanPham;
         
         
+    }
+    
+    public static ArrayList<String> LoadDataComBoBox(){
+        ArrayList<String> list = new ArrayList<>();
+        Connection con = myConnection.getConnection();
+        String sql = "SELECT MaNV, Hoten FROM NhanVien";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+            String maNV = rs.getString("MaNV");
+            String hoTen = rs.getString("Hoten");
+            String maNVHoTen = maNV + " - " + hoTen;
+            list.add(maNVHoTen);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
      public void  show_SanPham(String sql){
         ArrayList<SanPham> list = DanhSachSanPham(sql);
@@ -72,13 +93,14 @@ public class HoaDon extends javax.swing.JFrame {
          
         
             model.addRow (row);
-            
-            
-
-        
    }
     }
-    
+     private void ShowTenNV(){
+        ArrayList<String> datalist = LoadDataComBoBox();
+        for (String string : datalist) {
+        TenNguoiBan.addItem(string);
+        }
+     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -99,9 +121,9 @@ public class HoaDon extends javax.swing.JFrame {
         MaHoaDonText = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        TenNguoiBan = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        TenNguoiBan = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableSanPham = new javax.swing.JTable();
 
@@ -304,7 +326,7 @@ public class HoaDon extends javax.swing.JFrame {
             }
         });
         jPanel4.add(MaHoaDonText);
-        MaHoaDonText.setBounds(130, 90, 120, 35);
+        MaHoaDonText.setBounds(130, 90, 120, 30);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Mã Hóa Đơn");
@@ -316,20 +338,21 @@ public class HoaDon extends javax.swing.JFrame {
         jPanel4.add(jLabel1);
         jLabel1.setBounds(280, 90, 70, 30);
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Ngày Bán");
+        jPanel4.add(jLabel5);
+        jLabel5.setBounds(570, 90, 80, 30);
+        jPanel4.add(jDateChooser1);
+        jDateChooser1.setBounds(670, 90, 170, 30);
+
+        TenNguoiBan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TenNguoiBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TenNguoiBanActionPerformed(evt);
             }
         });
         jPanel4.add(TenNguoiBan);
-        TenNguoiBan.setBounds(360, 90, 120, 30);
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Ngày Bán");
-        jPanel4.add(jLabel5);
-        jLabel5.setBounds(510, 90, 80, 30);
-        jPanel4.add(jDateChooser1);
-        jDateChooser1.setBounds(590, 90, 170, 30);
+        TenNguoiBan.setBounds(360, 90, 180, 30);
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 1140, 160));
 
@@ -423,20 +446,13 @@ public class HoaDon extends javax.swing.JFrame {
     }//GEN-LAST:event_MaHoaDonTextActionPerformed
 
     private void TenNguoiBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TenNguoiBanActionPerformed
-      PreparedStatement ps;
-      Statement st;
-      ResultSet rs ;
-        try {
-            Connection con = myConnection.getConnection();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+     
     }//GEN-LAST:event_TenNguoiBanActionPerformed
 
     
     public static void main(String args[]) {
-        
+        ArrayList<String> dataList = LoadDataComBoBox();
+        System.out.println("Danh sách họ tên: " + dataList);
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

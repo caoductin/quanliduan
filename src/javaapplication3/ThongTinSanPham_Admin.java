@@ -409,6 +409,12 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         jLabel27.setFocusable(false);
         jLabel27.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        jTextFieldTenSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTenSPActionPerformed(evt);
+            }
+        });
+
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel32.setText("Loại Sản phẩm:");
@@ -850,6 +856,10 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
     private void jTextFieldMaSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMaSanPhamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldMaSanPhamActionPerformed
+
+    private void jTextFieldTenSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTenSPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTenSPActionPerformed
 
     /**
      * @param args the command line arguments
