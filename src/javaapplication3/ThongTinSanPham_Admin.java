@@ -2,6 +2,7 @@
 package javaapplication3;
 
 import Database.myConnection;
+import dto.SanPham;
 import java.awt.Menu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,18 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package javaapplication3;
 import DAO.XuLiBangPhanCong;
+import dto.ManipulateComponents;
 import dto.NgayPhanCong;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -22,10 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-/**
- *
- * @author Le Q. Tien
- */
+
 public class BangPhanCong_Admin extends javax.swing.JFrame {
 
      BangChonNhanVien navigate = new BangChonNhanVien();

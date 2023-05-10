@@ -1,26 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package javaapplication3;
 
-/**
- *
- * @author caoductin
- */
+package dto;
+
+
 public class SanPham {
     private int MaSanPham;
     private String  TenSanPham,LoaiSanPham,ThuongHieu,NgayNhap;
     private int SoLuong;
-    private double Gia;
-    public SanPham(int MaSanPham, String TenSanPham, String LoaiSanPham, String ThuongHieu, String NgayNhap, int Soluong, Double Gia){
+    private double GiaBan;
+    public SanPham(int MaSanPham, String TenSanPham, String LoaiSanPham, String ThuongHieu, String NgayNhap, int Soluong, Double GiaBan){
         this.MaSanPham = MaSanPham;
         this.TenSanPham = TenSanPham;
         this.LoaiSanPham = LoaiSanPham;
         this.ThuongHieu = ThuongHieu;
         this.NgayNhap = NgayNhap;
         this.SoLuong = Soluong;
-        this.Gia = Gia;
+        this.GiaBan = GiaBan;
                 
     }
     public int getMaSanPham(){
@@ -42,7 +36,7 @@ public class SanPham {
         return this.SoLuong;
     }
     public double getGia(){
-        return this.Gia;
+        return this.GiaBan;
     }
     
     
