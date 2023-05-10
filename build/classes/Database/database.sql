@@ -1,4 +1,4 @@
-drop database quanliduan;
+Drop database quanliduan;
 create database quanliduan;
 CREATE TABLE IF NOT EXISTS `quanliduan`.`account` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -34,10 +34,14 @@ CREATE TABLE `quanliduan`.`PhanCong` (
   
 INSERT INTO `quanliduan`.`account` (`id`, `userName`, `Password`, `Gender`, `Phone`, `FullName`) VALUES ('3', 'TINTIN', '123123', 'NAM', '123124124', 'CAO DUC TIN');
 
+drop table  hoadon;
  CREATE TABLE `quanliduan`.`HoaDon`(
 	ID INT PRIMARY KEY,
-    NgayLap DATE
+    NgayLap DATE,
+    ThanhTien DECIMAL(10,2)
   );
+  ALTER TABLE sanpham ADD INDEX idx_giaban (GiaBan);
+  drop table chitiethoadon;
   CREATE TABLE `quanliduan`.`ChiTietHoaDon`(
 	ID INT PRIMARY KEY,
     MaNV INT UNSIGNED NOT NULL,
@@ -45,10 +49,11 @@ INSERT INTO `quanliduan`.`account` (`id`, `userName`, `Password`, `Gender`, `Pho
     MaSanPham INT NOT NULL,
     SoLuong INT NOT NULL,
     GiaBan DECIMAL(10,2) NOT NULL,
-    TongTien DECIMAL(10,2) NOT NULL,
+    TongTien DECIMAL(10,2) AS (SoLuong * GiaBan),
     FOREIGN KEY (MaNV) REFERENCES nhanvien(MaNV),
     FOREIGN KEY (ID) REFERENCES hoadon(ID),
-    FOREIGN KEY (MaSanPham) REFERENCES sanpham(MaSanPham)
+    FOREIGN KEY (MaSanPham) REFERENCES sanpham(MaSanPham),
+    FOREIGN KEY (GiaBan) REFERENCES sanpham(GiaBan)
   );
 UPDATE ChiTietHoaDon SET TongTien = GiaBan * SoLuong;
 
@@ -61,16 +66,15 @@ CREATE TABLE `quanliduan`.`SanPham` (
   `LoaiSanPham` VARCHAR(45) NOT NULL,
   `ThuongHieu` VARCHAR(45) NOT NULL,
   `SoLuong` INT NOT NULL,
-  `Gia` VARCHAR(45) NOT NULL,
-  `NgayNhap` date  NOT NULL,
+  `GiaBan`  DECIMAL(10,2) NOT NULL,
+  `NgayNhap` DATE  NOT NULL,
   PRIMARY KEY (`MaSanPham`));
   ALTER TABLE sanpham MODIFY Gia DECIMAL(10,2) NOT NULL;
   
--- UPDATE ChiTietHoaDon SET TongTien = GiaBan * SoLuong WHERE SoLuong >0;
-UPDATE ChiTietHoaDon
-JOIN SanPham ON ChiTietHoaDon.MaSanPham = SanPham.MaSanPham
-SET ChiTietHoaDon.TongTien = SanPham.Gia * ChiTietHoaDon.SoLuong;
-
-ALTER TABLE HoaDon ADD COLUMN Tong DECIMAL(10,2) NOT NULL AFTER NgayLap;
-UPDATE HoaDon
-SET Tong = (SELECT SUM(TongTien) FROM ChiTietHoaDon)
+-- tinh thanhtien trong cot hoadon
+UPDATE hoadon
+SET thanhtien = (
+  SELECT SUM(TongTien)
+  FROM chitiethoadon
+  WHERE chitiethoadon.id = hoadon.id
+);

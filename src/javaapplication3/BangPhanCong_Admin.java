@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package javaapplication3;
+import DAO.XuLiBangPhanCong;
+import dto.NgayPhanCong;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -97,7 +99,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
 //     }
      
      public void LoadNVIntoBangPhancong(){ // this function will load the Nhanvien into bang phan cong if Nhanvien have jobs
-      XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
       thaoTac.setTableIsNull(jTablePhancongCaSang);
       thaoTac.setTableIsNull(jTablePhanCongCaChieu);
        thaoTac.setTableIsNull(jTablePhanCongCaToi);
@@ -129,7 +131,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
     
     public void SetDateForTable(LocalDate dateStart){ // set ngày cho bảng phân công
         
-      NgayPhanCong date = new NgayPhanCong();
+        NgayPhanCong date = new NgayPhanCong();
       DefaultTableModel model = (DefaultTableModel) jTablePhancongCaSang.getModel();
       
       DefaultTableModel model1 = (DefaultTableModel) jTablePhanCongCaChieu.getModel();

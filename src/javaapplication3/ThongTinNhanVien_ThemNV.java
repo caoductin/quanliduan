@@ -4,6 +4,8 @@
  */
 package javaapplication3;
 
+import Database.myConnection;
+import dto.NhanVien;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;

@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package javaapplication3;
 
+import Database.myConnection;
 import java.awt.Menu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,15 +14,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Le Q. Tien
- */
+
 public class ThongTinSanPham_Admin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form DanhSachNhanVien
-     */
+    
     public ThongTinSanPham_Admin() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -49,7 +42,7 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
                 SanPham sanPhamTemp;
                 while(rs.next()){
                     sanPhamTemp = new SanPham(rs.getInt("MaSanPham"),rs.getString("TenSanPham"), rs.getString("LoaiSanPham"),
-                            rs.getString("ThuongHieu"), rs.getString("NgayNhap"),rs.getInt("SoLuong"), rs.getDouble("Gia"));
+                            rs.getString("ThuongHieu"), rs.getString("NgayNhap"),rs.getInt("SoLuong"), rs.getDouble("GiaBan"));
                     
 
                     DanhSachSanPham.add(sanPhamTemp);//add all data to userlist

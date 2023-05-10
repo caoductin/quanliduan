@@ -4,6 +4,8 @@
  */
 package javaapplication3;
 
+import Database.myConnection;
+import dto.NgayPhanCong;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;

@@ -1,13 +1,13 @@
 
 package DAO;
 
+import Database.myConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javaapplication3.NhanVien;
+import dto.NhanVien;
 import java.sql.Connection;
-import javaapplication3.myConnection;
 
 
 public class DAONhanVien {

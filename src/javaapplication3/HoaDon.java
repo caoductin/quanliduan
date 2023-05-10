@@ -1,6 +1,8 @@
 
 package javaapplication3;
 
+
+import Database.myConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -341,7 +343,7 @@ public class HoaDon extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Ngày Bán");
         jPanel4.add(jLabel5);
-        jLabel5.setBounds(570, 90, 80, 30);
+        jLabel5.setBounds(580, 90, 80, 30);
         jPanel4.add(jDateChooser1);
         jDateChooser1.setBounds(670, 90, 170, 30);
 
@@ -352,7 +354,7 @@ public class HoaDon extends javax.swing.JFrame {
             }
         });
         jPanel4.add(TenNguoiBan);
-        TenNguoiBan.setBounds(360, 90, 180, 30);
+        TenNguoiBan.setBounds(360, 90, 200, 30);
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 1140, 160));
 
