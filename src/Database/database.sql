@@ -40,10 +40,18 @@ drop table  hoadon;
     NgayLap DATE,
     ThanhTien DECIMAL(10,2)
   );
+  
+  -- chèn dữ liệu 
+  
+INSERT INTO `quanliduan`.`hoadon` (`ID`, `NgayLap`) VALUES ('12345', '2023-10-11');
+INSERT INTO `quanliduan`.`hoadon` (`ID`, `NgayLap`) VALUES ('12346', '2023-11-12');
+INSERT INTO `quanliduan`.`hoadon` (`ID`, `NgayLap`) VALUES ('12347', '2023-9-10');
+
+  
   ALTER TABLE sanpham ADD INDEX idx_giaban (GiaBan);
   drop table chitiethoadon;
   CREATE TABLE `quanliduan`.`ChiTietHoaDon`(
-	ID INT PRIMARY KEY,
+	ID INT,
     MaNV INT UNSIGNED NOT NULL,
     MaChiTietHoaDon INT NOT NULL,
     MaSanPham INT NOT NULL,
@@ -53,7 +61,8 @@ drop table  hoadon;
     FOREIGN KEY (MaNV) REFERENCES nhanvien(MaNV),
     FOREIGN KEY (ID) REFERENCES hoadon(ID),
     FOREIGN KEY (MaSanPham) REFERENCES sanpham(MaSanPham),
-    FOREIGN KEY (GiaBan) REFERENCES sanpham(GiaBan)
+    FOREIGN KEY (GiaBan) REFERENCES sanpham(GiaBan),
+    PRIMARY KEY (`MaChiTietHoaDon`, `MaSanPham`, `ID`)
   );
 UPDATE ChiTietHoaDon SET TongTien = GiaBan * SoLuong;
 
@@ -69,7 +78,20 @@ CREATE TABLE `quanliduan`.`SanPham` (
   `GiaBan`  DECIMAL(10,2) NOT NULL,
   `NgayNhap` DATE  NOT NULL,
   PRIMARY KEY (`MaSanPham`));
-  ALTER TABLE sanpham MODIFY Gia DECIMAL(10,2) NOT NULL;
+  
+  -- chen dữ liều
+INSERT INTO `quanliduan`.`sanpham` (`MaSanPham`, `TenSanPham`, `LoaiSanPham`, `ThuongHieu`, `SoLuong`, `GiaBan`, `NgayNhap`) VALUES ('4488', 'chuột gaming', 'chuột', 'logitech', '300', '700000', '2023-05-11');
+INSERT INTO `quanliduan`.`sanpham` (`MaSanPham`, `TenSanPham`, `LoaiSanPham`, `ThuongHieu`, `SoLuong`, `GiaBan`, `NgayNhap`) VALUES ('4489', 'bàn phím gaming', 'bàn phím', 'asus', '150', '300000', '2023-05-11');
+INSERT INTO `quanliduan`.`sanpham` (`MaSanPham`, `TenSanPham`, `LoaiSanPham`, `ThuongHieu`, `SoLuong`, `GiaBan`, `NgayNhap`) VALUES ('4490', 'tai nghe gaming', 'tai nghe', 'rapoo', '700', '150000', '2023-05-11');  
+  
+  
+  -- chèn dữ liệu vào chitiethoadon
+
+INSERT INTO `quanliduan`.`ChiTietHoaDon` (`MaNV`, `MaChiTietHoaDon`, `MaSanPham`, `SoLuong`, `GiaBan`, `ID`) 
+VALUES  
+    (2004, 223344, 4488, 5, 700000, 12345), 
+    (2004, 223344, 4489, 3, 300000, 12345),
+    (2004, 223344, 4490, 2, 150000, 12345);
   
 -- tinh thanhtien trong cot hoadon
 UPDATE hoadon

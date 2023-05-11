@@ -67,5 +67,15 @@ public class XuLiHoaDon extends HoaDon{
         return DanhSachSanPham;
     }
     
-    public static void abc(){}
+    public static void NhapMaHD(){
+        PreparedStatement ps;
+        Statement st;
+        
+        try {
+            Connection con = myConnection.getConnection();
+            String sql = "INSER INTO `hoadon` ";
+            
+        } catch (Exception e) {
+        }
+    }
 }
