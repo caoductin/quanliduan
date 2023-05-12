@@ -2,10 +2,13 @@
 package javaapplication3;
 
 
+import DAO.XuLiHoaDon;
 import static DAO.XuLiHoaDon.LoadDataComBoBox;
-import static DAO.XuLiHoaDon.DanhSachSanPham;
+import static DAO.XuLiHoaDon.DanhSachHoaDon;
+import dto.ChiTietHoaDon;
 import dto.SanPham;
 import java.util.ArrayList;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 public class HoaDon extends javax.swing.JFrame {
@@ -14,7 +17,7 @@ public class HoaDon extends javax.swing.JFrame {
     public HoaDon() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.show_SanPham("SELECT * FROM SanPham");
+        this.show_DonHang("select * from chitiethoadon join sanpham on chitiethoadon.MaSanPham = sanpham.MaSanPham");
         this.ShowTenNV();
     }
     public void clearTable(){
@@ -30,24 +33,23 @@ public class HoaDon extends javax.swing.JFrame {
         }
     }
     
-     public void  show_SanPham(String sql){
-        ArrayList<SanPham> list = DanhSachSanPham(sql);
-    
+     public void  show_DonHang(String sql){
+        
+         Map<SanPham, ChiTietHoaDon> danhSachHoaDon = DanhSachHoaDon(sql);
         DefaultTableModel model =(DefaultTableModel)jTableSanPham.getModel();
 
         Object[] row = new Object[10];
-        for(int i=0;i<list.size();i++){
-            row[0] = list.get(i).getMaSanPham();
-            row[1] = list.get(i).getTenSanPham();
-            row[2] = list.get(i).getLoaiSanPham();
-            row[3] = list.get(i).getThuongHieu();
-            row[4] = list.get(i).getSoLuong();
-            row[5] = list.get(i).getGia();
-            row[6] = list.get(i).getNgayNhap();
-         
-        
+        for(Map.Entry<SanPham, ChiTietHoaDon> entry : danhSachHoaDon.entrySet()){
+            SanPham sp = entry.getKey();
+            ChiTietHoaDon cthd = entry.getValue();
+            row[0] = sp.getMaSanPham();
+            row[1] = sp.getTenSanPham();
+            row[2] = cthd.getSoLuong();
+            row[3] = sp.getGia();
+            row[4] = cthd.getTongTien();
+            
             model.addRow (row);
-   }
+        }
     }
      
     @SuppressWarnings("unchecked")
@@ -323,11 +325,11 @@ public class HoaDon extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã sản phẩm", "Tên sản phẩm", "Loại sản phẩm", "Thương hiệu", "Số lượng", "Giá", "Ngày nhập"
+                "Mã Hàng", "Tên Hàng", "Số Lượng", "Giá", "Thành Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

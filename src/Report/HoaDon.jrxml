@@ -159,7 +159,7 @@ FROM quanliduan.chitiethoadon
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[Tổng Tiền]]></text>
+				<text><![CDATA[Thành Tiền]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -209,7 +209,7 @@ FROM quanliduan.chitiethoadon
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[Thành Tiền]]></text>
+				<text><![CDATA[Tổng Tiền]]></text>
 			</staticText>
 			<textField pattern="#,##0">
 				<reportElement x="542" y="23" width="81" height="20" uuid="09adadb1-0389-4ae4-9c89-a1563039f241"/>

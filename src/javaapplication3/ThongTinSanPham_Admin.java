@@ -43,7 +43,7 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
                 SanPham sanPhamTemp;
                 while(rs.next()){
                     sanPhamTemp = new SanPham(rs.getInt("MaSanPham"),rs.getString("TenSanPham"), rs.getString("LoaiSanPham"),
-                            rs.getString("ThuongHieu"), rs.getString("NgayNhap"),rs.getInt("SoLuong"), rs.getDouble("GiaBan"));
+                            rs.getString("ThuongHieu"), rs.getDate("NgayNhap"),rs.getInt("SoLuong"), rs.getDouble("GiaBan"));
                     
 
                     DanhSachSanPham.add(sanPhamTemp);//add all data to userlist

@@ -2,6 +2,7 @@
 package DAO;
 
 import Database.myConnection;
+import dto.ChiTietHoaDon;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javaapplication3.HoaDon;
 import dto.SanPham;
+import java.util.HashMap;
+import java.util.Map;
 
 
 
@@ -36,9 +39,9 @@ public class XuLiHoaDon extends HoaDon{
         return list;
     }
     
-    public static ArrayList<SanPham> DanhSachSanPham(String sql){
+    public static Map<SanPham, ChiTietHoaDon> DanhSachHoaDon(String sql){
 
-            ArrayList<SanPham> DanhSachSanPham = new ArrayList();
+           Map<SanPham, ChiTietHoaDon> DanhSachHoaDon = new HashMap<>();
                 PreparedStatement ps;
                 Statement st;
                 ResultSet rs ;
@@ -47,24 +50,20 @@ public class XuLiHoaDon extends HoaDon{
                 st = con.createStatement();
                 String query1 = sql;
                 rs = st.executeQuery(query1);
-                SanPham sanPhamTemp;
                 while(rs.next()){
-                    sanPhamTemp = new SanPham(rs.getInt("MaSanPham"),rs.getString("TenSanPham"), rs.getString("LoaiSanPham"),
-                            rs.getString("ThuongHieu"), rs.getString("NgayNhap"),rs.getInt("SoLuong"), rs.getDouble("GiaBan"));
-                    
-
-                    DanhSachSanPham.add(sanPhamTemp);//add all data to userlist
-
-
-                
-                        
+                    String TenSP = rs.getString("TenSanPham");
+                    Integer MaSP = rs.getInt("MaSanPham");
+                    Double GiaBan = rs.getDouble("GiaBan");
+                    Integer Soluong = rs.getInt("SoLuong");
+                    Float ThanhTien = rs.getFloat("TongTien");
+                    SanPham sanPham = new SanPham(MaSP, TenSP, "", "", null, 0, GiaBan);
+                    ChiTietHoaDon cthd = new ChiTietHoaDon(0, 0, 0, 0, Soluong, 0, ThanhTien);
+                    DanhSachHoaDon.put(sanPham, cthd);
            }
                    } catch (Exception ex) {
             Logger.getLogger(java.awt.Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
-           
-        
-        return DanhSachSanPham;
+        return DanhSachHoaDon;
     }
     
     public static void NhapMaHD(){

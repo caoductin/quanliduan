@@ -1,13 +1,16 @@
 
 package dto;
 
+import java.util.Date;
+
 
 public class SanPham {
     private int MaSanPham;
-    private String  TenSanPham,LoaiSanPham,ThuongHieu,NgayNhap;
+    private String  TenSanPham,LoaiSanPham,ThuongHieu;
+    private Date NgayNhap;
     private int SoLuong;
     private double GiaBan;
-    public SanPham(int MaSanPham, String TenSanPham, String LoaiSanPham, String ThuongHieu, String NgayNhap, int Soluong, Double GiaBan){
+    public SanPham(int MaSanPham, String TenSanPham, String LoaiSanPham, String ThuongHieu, Date NgayNhap, int Soluong, Double GiaBan){
         this.MaSanPham = MaSanPham;
         this.TenSanPham = TenSanPham;
         this.LoaiSanPham = LoaiSanPham;
@@ -29,7 +32,7 @@ public class SanPham {
     public String getThuongHieu(){
         return this.ThuongHieu;
     }
-    public String getNgayNhap(){
+    public Date getNgayNhap(){
         return this.NgayNhap;
     }
     public int getSoLuong(){
