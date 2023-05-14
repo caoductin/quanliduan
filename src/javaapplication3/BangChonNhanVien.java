@@ -78,10 +78,16 @@ public class BangChonNhanVien extends javax.swing.JFrame {
          PreparedStatement ps;
          Statement st;
          int count = 0;
+         String date = changeFormat(DatePhanCong);
          Connection con = myConnection.getConnection();
         try {
             st = con.createStatement();
-            String query1 = "SELECT * FROM Nhanvien";
+            String query1 = "SELECT * FROM quanliduan.Nhanvien nv\n" +
+                " where not exists(\n" +
+                "	select *\n" +
+                "    from quanliduan.Phancong pc\n" +
+                "    Where nv.MaNV = pc.MaNV And pc.NgayLam = '"+date +"' and pc.CaLam = '"+this.caLam+"'\n" +
+                " );";
             rs = st.executeQuery(query1);
                DefaultTableModel model =(DefaultTableModel)jTableChonNhanVien.getModel();
             while(rs.next()){
@@ -166,35 +172,12 @@ public class BangChonNhanVien extends javax.swing.JFrame {
         });   
     }
  
-    
-        
-//    JComboBox<String> comboBox = new JComboBox<>();
-//List<String> dataList = new ArrayList<>();
-//
-//// Add an ActionListener to the JComboBox
-//    jComboBoxSapXep.addActionListener(new ActionListener() {
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        // Get the current selected item from the JComboBox
-//        String selectedItem = (String) comboBox.getSelectedItem();
-//        
-//        // Sort the data list based on the selected item 
-//        if ("Ascending".equals(selectedItem)) {
-//            Collections.sort(dataList);
-//        } else if ("Descending".equals(selectedItem)) {
-//            Collections.sort(dataList, Collections.reverseOrder());
-//        }
-//        
-//        // Update the JTable using DefaultTableModel or any custom TableModel implementation
-//        updateTable(dataList);
-//    }
-//});
   
     public BangChonNhanVien() {
         initComponents();
         ManipulateComponents Thaotac = new ManipulateComponents();
         Thaotac.setHeaderTableTest(jTableChonNhanVien);
-        LoadDataIntoBangNhanVien();
+        
         changeData();
     }
 
@@ -430,6 +413,8 @@ public class BangChonNhanVien extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BangChonNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

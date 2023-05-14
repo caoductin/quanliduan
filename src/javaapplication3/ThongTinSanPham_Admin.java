@@ -113,7 +113,7 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
       String ThuongHieu = jTextFieldTH.getText();
         this.clearTable();
 
-        String sql = "SELECT * FROM SanPham WHERE 1=1";
+        String sql = "SELECT * FROM quanliduan.SanPham WHERE 1=1";
         if (!MaSP.equals("")) {
             sql += " AND MaSanPham LIKE '%" + MaSP + "%'";
         }

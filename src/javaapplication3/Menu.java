@@ -433,14 +433,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jPanelProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelProductsMouseClicked
         // TODO add your handling code here:
-          Products supf = new Products();
-                supf.setVisible(true);//visible jfame 
-                supf.pack();
-                supf.setLocationRelativeTo(null);//set position cho jframe
-                
-          
-                supf.setDefaultCloseOperation(EXIT_ON_CLOSE);//ham nay khi dong se tat luon 
-                this.dispose();
+       
     }//GEN-LAST:event_jPanelProductsMouseClicked
 
     private void jPanelLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelLogoutMouseClicked

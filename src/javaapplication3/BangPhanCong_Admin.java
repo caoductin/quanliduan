@@ -1,11 +1,19 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package javaapplication3;
 import DAO.XuLiBangPhanCong;
 import dto.ManipulateComponents;
 import dto.NgayPhanCong;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -15,10 +23,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-
+/**
+ *
+ * @author Le Q. Tien
+ */
 public class BangPhanCong_Admin extends javax.swing.JFrame {
 
-     BangChonNhanVien navigate = new BangChonNhanVien();
+    
       public String changeFormat(String dateStr){// thay đổi định dạng của ngày
            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -89,7 +100,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
 //     }
      
      public void LoadNVIntoBangPhancong(){ // this function will load the Nhanvien into bang phan cong if Nhanvien have jobs
-         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+      XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
       thaoTac.setTableIsNull(jTablePhancongCaSang);
       thaoTac.setTableIsNull(jTablePhanCongCaChieu);
        thaoTac.setTableIsNull(jTablePhanCongCaToi);
@@ -121,7 +132,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
     
     public void SetDateForTable(LocalDate dateStart){ // set ngày cho bảng phân công
         
-        NgayPhanCong date = new NgayPhanCong();
+      NgayPhanCong date = new NgayPhanCong();
       DefaultTableModel model = (DefaultTableModel) jTablePhancongCaSang.getModel();
       
       DefaultTableModel model1 = (DefaultTableModel) jTablePhanCongCaChieu.getModel();
@@ -156,8 +167,6 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
     }
 
      
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -625,53 +634,91 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
 
     private void jTablePhancongCaSangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePhancongCaSangMouseClicked
         // TODO add your handling code here:
-            if (evt.getClickCount() == 2) {
-     //           System.out.println("cao duc tin");
-     //             int column = jTablePhancongCaSang.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
-     //              String columnName = jTablePhancongCaSang.getModel().getColumnName(column); // get the name of the column from the table model
-     //               System.out.println("Column name: " + columnName);
+            if (evt.getClickCount() == 2) {// nếu người dùng click vào ô trống
 
-                 //JTable table = new JTable(); // create a new JTable component
-//                 TableColumnModel columnModel = jTablePhancongCaSang.getColumnModel(); // get the column model
-//
-//                 for (int i = 0; i < columnModel.getColumnCount(); i++) {
-//                     TableColumn column = columnModel.getColumn(i); // get the TableColumn at the specified index
-//                     Object headerValue = column.getHeaderValue(); // get the header value of the column
-//                     System.out.println("Header value of column " + i + ": " + headerValue); // print the header value to the console
-//                 }
-                    TableColumnModel columnModel = jTablePhancongCaSang.getColumnModel(); // get the column model
-                    int index = jTablePhancongCaSang.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
-                     TableColumn column = columnModel.getColumn(index); // get the TableColumn at the specified index
-                     Object headerValue = column.getHeaderValue(); // get the header value of the column
-                   
-                       
+                                //get the vaule of the cell you clicked
+                                 int row = jTablePhancongCaSang.getSelectedRow();
+                                 int column1 = jTablePhancongCaSang.getSelectedColumn();
+                                 Object value = jTablePhancongCaSang.getValueAt(row, column1);
+
+                                if(value == null){
+
+                                  
+
+
+                                 TableColumnModel columnModel = jTablePhancongCaSang.getColumnModel(); // get the column model
+                                 int index = jTablePhancongCaSang.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
+                                 TableColumn column = columnModel.getColumn(index); // get the TableColumn at the specified index
+                                 Object headerValue = column.getHeaderValue(); // get the header value of the column
 
 
 
-             //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
-                   //  BangChonNhanVien navigate = new BangChonNhanVien();
-                     navigate.setDate((String) headerValue,"Ca Sang"); 
-                     
-                    
-                      navigate.addWindowListener(new WindowAdapter() {
-                    @Override
-                         public void windowClosed(WindowEvent e) {
-                              int row = jTablePhancongCaSang.getSelectedRow();
-                                int column = jTablePhancongCaSang.getSelectedColumn();
-                // This method is called when the SecondJFrame is closed
-
-                        //jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
-                         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
-                         
-                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhancongCaSang,"Ca Sang");
-                       
-            }
-        });
-                     navigate.setVisible(true);//visible jfame 
-                     navigate.pack();
-                     navigate.setLocationRelativeTo(null);//set position cho jframe
 
 
+                             //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
+                                   //  2 = new BangChonNhanVien();
+                                     BangChonNhanVien BangChon = new BangChonNhanVien();
+                                     BangChon.setDate((String) headerValue,"Ca Sang");
+                                     BangChon.LoadDataIntoBangNhanVien();
+
+
+                                      BangChon.addWindowListener(new WindowAdapter() {
+                                    @Override
+                                         public void windowClosed(WindowEvent e) {
+                                              int row = jTablePhancongCaSang.getSelectedRow();
+                                                int column = jTablePhancongCaSang.getSelectedColumn();
+                                // This method is called when the SecondJFrame is closed
+
+                                        //jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
+                                         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+
+                                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhancongCaSang,"Ca Sang");
+
+                            }
+                        });
+                                     BangChon.setVisible(true);//visible jfame 
+                                     BangChon.pack();
+                                     BangChon.setLocationRelativeTo(null);//set position cho jframe
+
+                                }
+                else //nếu người dùng click vào ô có người thì sẽ thực hiện xoá thay đổi nhân viên
+                    {
+                        BangXoaNhanVien bangXoa = new BangXoaNhanVien();
+                                 TableColumnModel columnModel = jTablePhancongCaSang.getColumnModel(); // get the column model
+                                 int index = jTablePhancongCaSang.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
+                                 TableColumn column = columnModel.getColumn(index); // get the TableColumn at the specified index
+                                 Object headerValue = column.getHeaderValue(); // get the header value of the column
+                                     
+                                 
+
+
+
+
+                             //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
+                                   //  BangChonNhanVien navigate = new BangChonNhanVien();
+                                     bangXoa.setDate((String) headerValue,"Ca Sang"); 
+                                     bangXoa.LoadDataIntoBangNhanVien();
+                               
+
+
+                                      bangXoa.addWindowListener(new WindowAdapter() {
+                                    @Override
+                                         public void windowClosed(WindowEvent e) {
+                                              int row = jTablePhancongCaSang.getSelectedRow();
+                                                int column = jTablePhancongCaSang.getSelectedColumn();
+                                // This method is called when the SecondJFrame is closed
+
+                                        //jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
+                                         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+                                         thaoTac.setTableIsNull(jTablePhancongCaSang);
+                                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhancongCaSang,"Ca Sang");
+                            }
+                        });
+                                     bangXoa.setVisible(true);//visible jfame 
+                                     bangXoa.pack();
+                                     bangXoa.setLocationRelativeTo(null);//set position cho jframe
+                      
+                    }
                
        }
     }//GEN-LAST:event_jTablePhancongCaSangMouseClicked
@@ -681,64 +728,90 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
          if (evt.getClickCount() == 2) {
              
              
-             //lấy ngày của cột để đưa vào csdl
-              TableColumnModel columnModel = jTablePhancongCaSang.getColumnModel(); // get the column model
-              int index = jTablePhancongCaSang.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
-              TableColumn column1 = columnModel.getColumn(index); // get the TableColumn at the specified index
-              Object headerValue = column1.getHeaderValue(); // get the header value of the column
-              //System.out.println("Header value of column " + index + ": " + headerValue); //print
-              
-              
-              
-              
-                       
-               
-                
 
-                 
-                 
-        //Get the current value in the cell
-              //   Object currentValue = jTablePhanCongCaChieu.getValueAt(row, column);
+                                //get the vaule of the cell you clicked
+                                 int row = jTablePhanCongCaChieu.getSelectedRow();
+                                 int column1 = jTablePhanCongCaChieu.getSelectedColumn();
+                                 Object value = jTablePhanCongCaChieu.getValueAt(row, column1);
 
-        //Prompt the user to enter a new value
-                 // String newValue = JOptionPane.showInputDialog("Enter a new value:", currentValue);
+                                if(value == null){
 
-        //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
-               // BangChonNhanVien navigate = new BangChonNhanVien();
-                
-               
-               navigate.setDate((String) headerValue,"Ca Chieu");// đưa ngày vào trong JFrame Bangchonnhanvien
-                
-                
-               // navigate.setDataFromTable(jTablePhanCongCaChieu, row, column);
-                 
-               navigate.addWindowListener(new WindowAdapter() {
-                    @Override
-                         public void windowClosed(WindowEvent e) {
-                              int row = jTablePhanCongCaChieu.getSelectedRow();
-                                int column = jTablePhanCongCaChieu.getSelectedColumn();
-                // This method is called when the SecondJFrame is closed
+                                  
+
+
+                                 TableColumnModel columnModel = jTablePhanCongCaChieu.getColumnModel(); // get the column model
+                                 int index = jTablePhanCongCaChieu.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
+                                 TableColumn column = columnModel.getColumn(index); // get the TableColumn at the specified index
+                                 Object headerValue = column.getHeaderValue(); // get the header value of the column
+
+
+
+
+
+                             //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
+                                   //  2 = new BangChonNhanVien();
+                                     BangChonNhanVien BangChon = new BangChonNhanVien();
+                                     BangChon.setDate((String) headerValue,"Ca Chieu");
+                                     BangChon.LoadDataIntoBangNhanVien();
+
+
+                                      BangChon.addWindowListener(new WindowAdapter() {
+                                    @Override
+                                         public void windowClosed(WindowEvent e) {
+                                              int row = jTablePhanCongCaChieu.getSelectedRow();
+                                                int column = jTablePhanCongCaChieu.getSelectedColumn();
+                                // This method is called when the SecondJFrame is closed
+
+                                        //jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
+                                         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+
+                                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaChieu,"Ca Chieu");
+
+                            }
+                        });
+                                     BangChon.setVisible(true);//visible jfame 
+                                     BangChon.pack();
+                                     BangChon.setLocationRelativeTo(null);//set position cho jframe
+
+                                }
+                else //nếu người dùng click vào ô có người thì sẽ thực hiện xoá thay đổi nhân viên
+                    {
+                        BangXoaNhanVien bangXoa = new BangXoaNhanVien();
+                                 TableColumnModel columnModel = jTablePhanCongCaChieu.getColumnModel(); // get the column model
+                                 int index = jTablePhanCongCaChieu.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
+                                 TableColumn column = columnModel.getColumn(index); // get the TableColumn at the specified index
+                                 Object headerValue = column.getHeaderValue(); // get the header value of the column
+                                     
+                                 
+
+
+
+
+                             //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
+                                   //  BangChonNhanVien navigate = new BangChonNhanVien();
+                                     bangXoa.setDate((String) headerValue,"Ca Chieu"); 
+                                     bangXoa.LoadDataIntoBangNhanVien();
+                               
+
+
+                                      bangXoa.addWindowListener(new WindowAdapter() {
+                                    @Override
+                                         public void windowClosed(WindowEvent e) {
+                                              int row = jTablePhanCongCaChieu.getSelectedRow();
+                                                int column = jTablePhanCongCaChieu.getSelectedColumn();
+                                // This method is called when the SecondJFrame is closed
+
+                                        //jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
+                                         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+                                         thaoTac.setTableIsNull(jTablePhanCongCaChieu);
+                                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaChieu,"Ca Chieu");
+                            }
+                        });
+                                     bangXoa.setVisible(true);//visible jfame 
+                                     bangXoa.pack();
+                                     bangXoa.setLocationRelativeTo(null);//set position cho jframe
                       
-                
-                      //  jTablePhanCongCaChieu.setValueAt(navigate.tenNhanVien, row, column);
-                        XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
-                         
-                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaChieu,"Ca Chieu");
-
-            }
-        });
-                 
-                navigate.setVisible(true);//visible jfame 
-                navigate.pack();
-                navigate.setLocationRelativeTo(null);//set position cho jframe
-                
-        //Update the cell with the new value
-        
-             //       this.putTheEmployeeToTable(jTablePhanCongCaChieu, "caoductin", row, row);
-                
-                  
-               
-                
+                    }
               
                
        }
@@ -748,47 +821,91 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
          if (evt.getClickCount() == 2) {
              
-               //lấy ngày của cột để đưa vào csdl
-              TableColumnModel columnModel = jTablePhanCongCaToi.getColumnModel(); // get the column model
-              int index = jTablePhanCongCaToi.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
-              TableColumn column1 = columnModel.getColumn(index); // get the TableColumn at the specified index
-              Object headerValue = column1.getHeaderValue(); // get the header value of the column
-             // System.out.println("Header value of column " + index + ": " + headerValue); //print
-             
-             
-          
-                 int row =  jTablePhanCongCaToi.getSelectedRow();
-                 int column = jTablePhanCongCaToi.getSelectedColumn();
-        
-        //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
-              //  BangChonNhanVien navigate = new BangChonNhanVien();
-              
-              
-              
-                navigate.setDate((String) headerValue,"Ca Toi");// đưa ngày vào trong JFrame Bangchonnhanvien
-             
-                
-     
-                
-               navigate.addWindowListener(new WindowAdapter() {
-                    @Override
-                         public void windowClosed(WindowEvent e) {
-                              int row = jTablePhanCongCaToi.getSelectedRow();
-                                int column = jTablePhanCongCaToi.getSelectedColumn();
-                // This method is called when the SecondJFrame is closed
-                       
-                      XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
-                         
-                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaToi,"Ca Toi");
+                                //get the vaule of the cell you clicked
+                                 int row = jTablePhanCongCaToi.getSelectedRow();
+                                 int column1 = jTablePhanCongCaToi.getSelectedColumn();
+                                 Object value = jTablePhanCongCaToi.getValueAt(row, column1);
 
-            }
-        });
-                
-                navigate.setVisible(true);//visible jfame 
-                navigate.pack();
-                navigate.setLocationRelativeTo(null);//set position cho jframe
-                
-                
+                                if(value == null){
+
+                                  
+
+
+                                 TableColumnModel columnModel = jTablePhanCongCaToi.getColumnModel(); // get the column model
+                                 int index = jTablePhanCongCaToi.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
+                                 TableColumn column = columnModel.getColumn(index); // get the TableColumn at the specified index
+                                 Object headerValue = column.getHeaderValue(); // get the header value of the column
+
+
+
+
+
+                             //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
+                                   //  2 = new BangChonNhanVien();
+                                     BangChonNhanVien BangChon = new BangChonNhanVien();
+                                     BangChon.setDate((String) headerValue,"Ca Toi");
+                                     BangChon.LoadDataIntoBangNhanVien();
+
+
+                                      BangChon.addWindowListener(new WindowAdapter() {
+                                    @Override
+                                         public void windowClosed(WindowEvent e) {
+                                              int row = jTablePhanCongCaToi.getSelectedRow();
+                                                int column = jTablePhanCongCaToi.getSelectedColumn();
+                                // This method is called when the SecondJFrame is closed
+
+                                        //jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
+                                         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+
+                                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaToi,"Ca Toi");
+
+                            }
+                        });
+                                     BangChon.setVisible(true);//visible jfame 
+                                     BangChon.pack();
+                                     BangChon.setLocationRelativeTo(null);//set position cho jframe
+
+                                }
+                else //nếu người dùng click vào ô có người thì sẽ thực hiện xoá thay đổi nhân viên
+                    {
+                        BangXoaNhanVien bangXoa = new BangXoaNhanVien();
+                                 TableColumnModel columnModel = jTablePhanCongCaToi.getColumnModel(); // get the column model
+                                 int index = jTablePhanCongCaToi.columnAtPoint(evt.getPoint()); // get the column index of the clicked cell
+                                 TableColumn column = columnModel.getColumn(index); // get the TableColumn at the specified index
+                                 Object headerValue = column.getHeaderValue(); // get the header value of the column
+                                     
+                                 
+
+
+
+
+                             //khi người dùng double click vào một ô bất kì thì sẽ  chuyển tới 
+                                   //  BangChonNhanVien navigate = new BangChonNhanVien();
+                                     bangXoa.setDate((String) headerValue,"Ca Toi"); 
+                                     bangXoa.LoadDataIntoBangNhanVien();
+                               
+
+
+                                      bangXoa.addWindowListener(new WindowAdapter() {
+                                    @Override
+                                         public void windowClosed(WindowEvent e) {
+                                              int row = jTablePhanCongCaToi.getSelectedRow();
+                                                int column = jTablePhanCongCaToi.getSelectedColumn();
+                                // This method is called when the SecondJFrame is closed
+
+                                        //jTablePhancongCaSang.setValueAt(navigate.tenNhanVien, row, column);
+                                         XuLiBangPhanCong thaoTac = new XuLiBangPhanCong();
+                                         thaoTac.setTableIsNull(jTablePhanCongCaToi);
+                                         thaoTac.LoadNhanVienVaoBangPhanCong(jTablePhanCongCaToi,"Ca Toi");
+                            }
+                        });
+                                     bangXoa.setVisible(true);//visible jfame 
+                                     bangXoa.pack();
+                                     bangXoa.setLocationRelativeTo(null);//set position cho jframe
+                      
+                    }
+              
+               
               
                
        }
@@ -823,6 +940,14 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BangPhanCong_Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
