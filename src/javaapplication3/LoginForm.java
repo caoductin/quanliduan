@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package javaapplication3;
 
 import java.sql.Connection;
@@ -244,7 +241,7 @@ public class LoginForm extends javax.swing.JFrame {
             // TODO add your handling code here:
             
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/quanliduan", "root", "tincnttk62");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanliduan", "root", "1234");
               ps = con.prepareStatement("SELECT * FROM `account` WHERE `userName`=? AND `Password`=?");
                ps.setString(1, jTextFieldUserName.getText());
                ps.setString(2,String.valueOf(jPasswordFieldLogin.getPassword()));
