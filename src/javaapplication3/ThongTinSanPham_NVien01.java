@@ -169,7 +169,7 @@ public class ThongTinSanPham_NVien01 extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 80));
 
-        jPanel3.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel3.setBackground(new java.awt.Color(51, 52, 72));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

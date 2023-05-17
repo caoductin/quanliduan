@@ -202,7 +202,6 @@ public class UserNV_UI extends javax.swing.JFrame {
         });
 
         jButton15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/ASSIGNMENT1.png"))); // NOI18N
         jButton15.setText("Bảng Phân Công");
         jButton15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton15.setIconTextGap(5);
@@ -227,7 +226,7 @@ public class UserNV_UI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 257, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel3Layout.setVerticalGroup(
@@ -239,7 +238,7 @@ public class UserNV_UI extends javax.swing.JFrame {
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
