@@ -1,14 +1,22 @@
 
 package javaapplication3;
 
+import dto.SanPham;
+
+
+
 
 public class jdlAddSanPham extends javax.swing.JDialog {
-
+    private SanPham selectedSanPham;
     
     public jdlAddSanPham(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
+    
+    public void setSelectedSanPham(SanPham selectedSanPham) {
+    this.selectedSanPham = selectedSanPham;
+}
 
     
     @SuppressWarnings("unchecked")
@@ -94,6 +102,7 @@ public class jdlAddSanPham extends javax.swing.JDialog {
 
     private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
         HoaDon.SoLuong =  Integer.parseInt(spnSoLuong.getValue().toString());
+        
         this.dispose();
     }//GEN-LAST:event_btnChonActionPerformed
 
@@ -105,6 +114,7 @@ public class jdlAddSanPham extends javax.swing.JDialog {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
 
     /**
@@ -138,7 +148,9 @@ public class jdlAddSanPham extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                 
                 jdlAddSanPham dialog = new jdlAddSanPham(new javax.swing.JFrame(), true);
+                
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
