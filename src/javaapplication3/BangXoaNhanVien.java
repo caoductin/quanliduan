@@ -224,6 +224,7 @@ public class BangXoaNhanVien extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(585, 700));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -262,7 +263,7 @@ public class BangXoaNhanVien extends javax.swing.JFrame {
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 231, 583, 490);
+        jScrollPane1.setBounds(0, 160, 583, 560);
 
         xoabutton.setText("Xoá");
         xoabutton.addActionListener(new java.awt.event.ActionListener() {
@@ -271,7 +272,7 @@ public class BangXoaNhanVien extends javax.swing.JFrame {
             }
         });
         jPanel1.add(xoabutton);
-        xoabutton.setBounds(500, 130, 72, 23);
+        xoabutton.setBounds(490, 90, 72, 30);
 
         jComboBoxSapXep.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "theo Tên", "theo mã", "theo chức vụ" }));
         jComboBoxSapXep.addActionListener(new java.awt.event.ActionListener() {
@@ -280,13 +281,14 @@ public class BangXoaNhanVien extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jComboBoxSapXep);
-        jComboBoxSapXep.setBounds(90, 130, 112, 23);
+        jComboBoxSapXep.setBounds(90, 90, 103, 30);
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Sắp Xếp");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 130, 50, 30);
+        jLabel2.setBounds(20, 90, 60, 30);
 
-        jPanel3.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(51, 52, 72));
         jPanel3.setForeground(new java.awt.Color(153, 255, 255));
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
@@ -301,30 +303,29 @@ public class BangXoaNhanVien extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        jLabel4.setText("XOÁ NHÂN VIÊN");
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Xóa nhân viên");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(193, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(173, 173, 173)
-                .addComponent(jLabel3)
+                .addGap(175, 175, 175)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -338,13 +339,11 @@ public class BangXoaNhanVien extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 742, 100);
+        jPanel2.setBounds(0, 0, 590, 70);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
