@@ -9,14 +9,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 
 
@@ -59,17 +63,22 @@ public class XuatHD {
             // Định nghĩa map chứa vị trí của các ô trong template
             Map<String, CellAddress> cellPositions = new HashMap<>();
 
-            cellPositions.put("TenSanPham", new CellAddress("B15")); // Ô "Tên hàng" ở cột B, hàng 14
-            cellPositions.put("GiaBan", new CellAddress("C15")); // Ô "Giá bán" ở cột C, hàng 14
-            cellPositions.put("SoLuong", new CellAddress("D15")); // Ô "Số lượng" ở cột D, hàng 14
-            cellPositions.put("TongTien", new CellAddress("E15")); // Ô "Tổng tiền" ở cột F, hàng 14
-            cellPositions.put("ID", new CellAddress("B8")); // Ô "ID" ở cột F, hàng 5
-            cellPositions.put("NgayLap", new CellAddress("B9")); // Ô "Ngày lập" ở cột H, hàng 5
-            cellPositions.put("Hoten", new CellAddress("B10")); // Ô "Họ tên" ở cột F, hàng 8
-            cellPositions.put("ThanhTien",new CellAddress("G28"));
+            cellPositions.put("TenSanPham", new CellAddress(14, 1)); // Ô "Tên hàng" ở cột B, hàng 15
+            cellPositions.put("GiaBan", new CellAddress(14, 2)); // Ô "Giá bán" ở cột C, hàng 15
+            cellPositions.put("SoLuong", new CellAddress(14, 3)); // Ô "Số lượng" ở cột D, hàng 15
+            cellPositions.put("TongTien", new CellAddress(14, 4)); // Ô "Tổng tiền" ở cột E, hàng 15
+            cellPositions.put("ID", new CellAddress(7, 1)); // Ô "ID" ở cột B, hàng 8
+            cellPositions.put("NgayLap", new CellAddress(8, 1)); // Ô "Ngày lập" ở cột B, hàng 9
+            cellPositions.put("Hoten", new CellAddress(9, 1)); // Ô "Họ tên" ở cột B, hàng 10
+            cellPositions.put("ThanhTien", new CellAddress(27, 6)); // Ô "Thành tiền" ở cột G, hàng 28
 
             // Lấy dòng dữ liệu cho các trường "ID", "Hoten" và "NgayLap"
-            resultSet.next();
+            if (!resultSet.next()) {
+                 JOptionPane.showMessageDialog(null, "Vui lòng thêm sản phẩm");
+                System.out.println("Không tìm thấy dữ liệu trong ResultSet.");
+                // Xử lý lỗi hoặc thoát khỏi phương thức
+                return;
+            }
             Row headerRow = sheet.getRow(cellPositions.get("ID").getRow());
             if (headerRow == null) {
                 headerRow = sheet.createRow(cellPositions.get("ID").getRow());
@@ -97,11 +106,17 @@ public class XuatHD {
                 thanhTienRow = sheet.createRow(cellPositions.get("ThanhTien").getRow());
             }
             Cell thanhTienCell = thanhTienRow.createCell(cellPositions.get("ThanhTien").getColumn());
-            thanhTienCell.setCellValue(resultSet.getString("ThanhTien"));
+            double thanhTienValue = resultSet.getDouble("ThanhTien");
+            DecimalFormat currencyFormat1 = new DecimalFormat("#,### VND");
+            String formattedThanhTien = currencyFormat1.format(thanhTienValue);
+            thanhTienCell.setCellValue(formattedThanhTien);
+            
+            resultSet.next();
 
             // Đổ dữ liệu vào từng ô trong template
+            DecimalFormat currencyFormat = new DecimalFormat("#,### VND");
             int rowIndex = cellPositions.get("TenSanPham").getRow(); // Bắt đầu từ hàng có ô "TenSanPham"
-            while (resultSet.next()) {
+            do {
                 Row dataRow = sheet.getRow(rowIndex);
                 if (dataRow == null) {
                     dataRow = sheet.createRow(rowIndex);
@@ -115,18 +130,24 @@ public class XuatHD {
                             cell.setCellValue(resultSet.getString("TenSanPham"));
                             break;
                         case "GiaBan":
-                            cell.setCellValue(resultSet.getDouble("GiaBan"));
+                            double giaBan = resultSet.getDouble("GiaBan");
+                            cell.setCellValue(currencyFormat.format(giaBan));
                             break;
                         case "SoLuong":
                             cell.setCellValue(resultSet.getInt("SoLuong"));
                             break;
                         case "TongTien":
-                            cell.setCellValue(resultSet.getString("TongTien"));
+                             double tongTien = resultSet.getDouble("TongTien");
+                             cell.setCellValue(currencyFormat.format(tongTien));
                             break;
                     }
                 }
-                rowIndex++;
-            }
+                    rowIndex++;
+                } while (resultSet.next());
+             while (resultSet.next()) {
+                String tenSanPham = resultSet.getString("TenSanPham");
+                System.out.println(tenSanPham);
+                }
 
             // Tự động điều chỉnh kích thước cột
             for (int i = 0; i < 7; i++) {
@@ -138,6 +159,8 @@ public class XuatHD {
             workbook.write(fileOut);
             fileOut.close();
             workbook.close();
+            
+             JOptionPane.showMessageDialog(null, "Xuất Thành Công");
 
             System.out.println("Dữ liệu đã được xuất ra tệp Excel thành công.");
 
@@ -156,15 +179,18 @@ public class XuatHD {
             PreparedStatement ps;
             //ResultSet rs;
             
-             String sql = "UPDATE HoaDon hd\n" +
-                        "INNER JOIN ChiTietHoaDon cthd ON hd.ID = cthd.ID\n" +
-                        "INNER JOIN SanPham sp ON cthd.MaSanPham = sp.MaSanPham\n" +
-                        "SET hd.ThanhTien = cthd.SoLuong * sp.GiaBan;";
+             String sql ="UPDATE HoaDon\n" +
+                        "SET ThanhTien = (\n" +
+                        "    SELECT SUM(TongTien)\n" +
+                        "    FROM ChiTietHoaDon\n" +
+                        "    WHERE ChiTietHoaDon.ID = HoaDon.ID\n" +
+                        ")";
              
              ps = con.prepareStatement(sql);
             ps.executeUpdate();
         } catch (Exception e) {
         }
     }
+    
 }
 

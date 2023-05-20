@@ -80,25 +80,30 @@ public class XuLiHoaDon extends HoaDon{
         return danhSachHoaDon;
     }
     
-    public static void TaoHD(int MaHD, Date NgayTao, JComboBox combobox,int soLuongBan){
+    public static void TaoHD(int MaHD, JComboBox combobox,int soLuongBan){
 
             try {
                 Connection con = myConnection.getConnection();
 
+                // Lấy ngày hiện tại
+                Date currentDate = new Date();
+
+                // Chuyển đổi ngày hiện tại thành java.sql.Date
+                java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+
                 String sql = "INSERT INTO HoaDon (ID, NgayLap) VALUES (?, ?)";
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.setInt(1, MaHD);
-                ps.setDate(2, new java.sql.Date(NgayTao.getTime()));
+                ps.setDate(2, sqlDate);
                 ps.executeUpdate();
 
-                
                 JOptionPane.showMessageDialog(null, "Thêm hóa đơn thành công");
             } catch (NumberFormatException | SQLException ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Lỗi khi thêm hóa đơn");
             }
-        
-   
+
+
     }
     
     public static void CTHD (int MaHD, JComboBox combobox, int MaSanPham, int SoLuong, Double GiaBan){
@@ -128,7 +133,5 @@ public class XuLiHoaDon extends HoaDon{
         }
     }
     
-    public static void LoadHD(int maHD){
-        
-    }
+   
 }
