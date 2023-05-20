@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaapplication3;
+package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.logging.Level;
@@ -16,7 +16,7 @@ public class testconnection {
     public static void main(String[] args){
         String user="root";
         String password= "tincnttk62";
-        String url = "jdbc:mysql://localhost:3306/mysql";
+        String url = "jdbc:mysql://localhost/mysql";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection c;
@@ -31,6 +31,7 @@ public class testconnection {
             Logger.getLogger(testconnection.class.getName()).log(Level.SEVERE, null, ex);
              System.out.print("failed");
         }
+        
     }
     
 }

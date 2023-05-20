@@ -203,7 +203,6 @@ public class BangChonNhanVien extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(585, 700));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -250,7 +249,7 @@ public class BangChonNhanVien extends javax.swing.JFrame {
             }
         });
 
-        xoabutton.setText("Xoá");
+        xoabutton.setText("Chọn");
         xoabutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 xoabuttonActionPerformed(evt);
@@ -273,7 +272,7 @@ public class BangChonNhanVien extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Xóa nhân viên");
+        jLabel8.setText("Chọn nhân viên");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -376,59 +375,53 @@ public class BangChonNhanVien extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         NgayPhanCong phancong = new NgayPhanCong();
-        DefaultTableModel model = (DefaultTableModel) jTableChonNhanVien.getModel();
+        
         int row2 = jTableChonNhanVien.getSelectedRow();//return the row is select
         int[] selectedRows = jTableChonNhanVien.getSelectedRows();
-
+        
         int row1 = jTableChonNhanVien.getSelectedRowCount();// return the number of row is select
+       
 
         if (row2 != -1) {
-
+            System.out.print("cao duc tin");
+            
             try {
                 Connection conn = myConnection.getConnection();
                 Statement stmt = conn.createStatement();
-                String sql = "DELETE FROM `PhanCong` WHERE MaNV = ? AND CaLam = ? AND NgayLam = ?";
+                 String sql = "INSERT INTO `PhanCong` (`MaNV`, `CaLam`, `NgayLam`) VALUES (?, ?, ?)";
                 PreparedStatement ps = conn.prepareStatement(sql);
-                for (int i = 0; i < selectedRows.length; i++) {// loop all the row was selected
+                for (int i = 0; i < selectedRows.length; i++) {
                     int row = selectedRows[i];
-                    ps.setInt(1, Integer.parseInt(jTableChonNhanVien.getValueAt(row, 0).toString()));
+                    ps.setString(1, jTableChonNhanVien.getValueAt(row, 0).toString());
                     ps.setString(2, this.caLam);
                     ps.setString(3, changeFormat(DatePhanCong));
-
                     ps.addBatch();
-
                 }
                 ps.executeBatch();
-
-                // Loop over the selected rows and remove them
-                for (int i = selectedRows.length - 1; i >= 0; i--) {
-                    int rowIndex = selectedRows[i];
-                    model.removeRow(rowIndex);
-                }
-
                 conn.close();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog( null,"MySQL error: " + ex.getMessage(), "MySQL Error", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
-
+            
+                
             }
             // User selected a row, perform action
-
-            //            if( phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong,selectedRows.length) == false){
-                //                return ;
-                //            }
+          
+//            if( phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong,selectedRows.length) == false){
+//                return ;
+//            }
             System.out.print(jTableChonNhanVien.getValueAt(row, 0));
-
+            
+            
             this.setTenNhanVien((String)jTableChonNhanVien.getValueAt(row, 1));
             System.out.print(this.getTenNhanVien());
 
-            //this.dispose();
+            this.dispose();
         } else {
             // User did not select a row, show error message or perform other action
 
-            JOptionPane.showMessageDialog(this, "No row was selected");
+              JOptionPane.showMessageDialog(this, "No row was selected");
         }
-
         //  this.dispose();
     }//GEN-LAST:event_xoabuttonActionPerformed
 
@@ -480,16 +473,10 @@ public class BangChonNhanVien extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBoxSapXep;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableChonNhanVien;

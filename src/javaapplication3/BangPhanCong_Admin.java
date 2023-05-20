@@ -503,7 +503,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         jPanel4.add(jButtonLapLich);
         jButtonLapLich.setBounds(1000, 50, 80, 30);
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 1140, 720));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 1220, 720));
 
         jPanel3.setBackground(new java.awt.Color(51, 52, 72));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -542,16 +542,15 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         jPanelEmployeeLayout.setHorizontalGroup(
             jPanelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelEmployeeLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelEmployeeLayout.setVerticalGroup(
             jPanelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelEmployeeLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel11)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanelCustomers.setBackground(new java.awt.Color(51, 52, 72));
@@ -563,6 +562,9 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
             }
         });
         jPanelCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelCustomersMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanelCustomersMouseEntered(evt);
             }
@@ -589,7 +591,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
             .addGroup(jPanelCustomersLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel12)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanelProducts.setBackground(new java.awt.Color(51, 52, 72));
@@ -663,7 +665,6 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -672,7 +673,8 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -686,12 +688,12 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
                 .addComponent(jPanelCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 260, 730));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 180, 730));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1007,15 +1009,10 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
 
     private void jPanelEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelEmployeeMouseClicked
         // TODO add your handling code here:
-        //                 NhanVien supf = new NhanVien();
-        //                supf.setVisible(true);//visible jfame
-        //                supf.pack();
-        //                supf.setLocationRelativeTo(null);//set position cho jframe
-        //
-        //
-        //
-        //                supf.setDefaultCloseOperation(EXIT_ON_CLOSE);//ham nay khi dong se tat luon
-        //                this.dispose();
+                ThongTinNhanVien_ThemNV supf = new ThongTinNhanVien_ThemNV();
+                ManipulateComponents xuli = new ManipulateComponents();
+               
+                xuli.ChangeJframe(supf, this);
     }//GEN-LAST:event_jPanelEmployeeMouseClicked
 
     private void jPanelEmployeeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelEmployeeMouseEntered
@@ -1044,6 +1041,11 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
 
     private void jPanelProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelProductsMouseClicked
         // TODO add your handling code here:
+        
+        ThongTinSanPham_Admin supf = new ThongTinSanPham_Admin();
+        ManipulateComponents xuli = new ManipulateComponents();
+               
+        xuli.ChangeJframe(supf, this);
     }//GEN-LAST:event_jPanelProductsMouseClicked
 
     private void jPanelProductsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelProductsMouseEntered
@@ -1065,6 +1067,15 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         jPanel9.setBackground(new Color(51,52,72));
     }//GEN-LAST:event_jPanel9MouseExited
+
+    private void jPanelCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelCustomersMouseClicked
+        // TODO add your handling code here:
+         
+        HoaDon supf = new HoaDon();
+        ManipulateComponents xuli = new ManipulateComponents();
+               
+        xuli.ChangeJframe(supf, this);
+    }//GEN-LAST:event_jPanelCustomersMouseClicked
 
     /**
      * @param args the command line arguments

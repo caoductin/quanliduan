@@ -241,7 +241,7 @@ public class LoginForm extends javax.swing.JFrame {
             // TODO add your handling code here:
             
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanliduan", "root", "1234");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/quanliduan", "root", "tincnttk62");
               ps = con.prepareStatement("SELECT * FROM `account` WHERE `userName`=? AND `Password`=?");
                ps.setString(1, jTextFieldUserName.getText());
                ps.setString(2,String.valueOf(jPasswordFieldLogin.getPassword()));

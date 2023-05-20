@@ -8,9 +8,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
@@ -78,7 +80,19 @@ public class ManipulateComponents {
     
     table.getTableHeader().setPreferredSize(new Dimension(table.getTableHeader().getWidth(), 30)); // set the preferred height of the header
 }
-
+        public void ChangeJframe(JFrame name1,JFrame name2){
+                         
+                       
+                        name1.setVisible(true);//visible jfame
+                        name1.pack();
+                        name1.setLocationRelativeTo(null);//set position cho jframe
+        
+        
+        
+                        name1.setDefaultCloseOperation(EXIT_ON_CLOSE);//ham nay khi dong se tat luon
+                        name2.dispose();
+            
+        }
     
     
 }

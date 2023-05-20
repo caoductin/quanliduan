@@ -19,7 +19,7 @@ public class myConnection {
             Connection con = null;
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanliduan", "root", "1234"); 
+                con = DriverManager.getConnection("jdbc:mysql://localhost/quanliduan", "root", "tincnttk62"); 
             } catch(Exception ex){
                 System.out.print(ex.getMessage());
                 JOptionPane.showMessageDialog( null,"MySQL error: " + ex.getMessage(), "MySQL Error", JOptionPane.ERROR_MESSAGE);
