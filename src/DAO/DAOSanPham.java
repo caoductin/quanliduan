@@ -51,7 +51,7 @@ public class DAOSanPham  {
     public static ArrayList<String> LoadDataCategoryComBoBox(){
         ArrayList<String> list = new ArrayList<>();
         Connection con = myConnection.getConnection();
-        String sql = "SELECT DISTINCT LoaiSanPham FROM SanPham";
+        String sql = "SELECT LoaiSanPham FROM SanPham";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -70,7 +70,7 @@ public class DAOSanPham  {
     public static ArrayList<String> LoadDataTrademarkComBoBox(){
         ArrayList<String> list = new ArrayList<>();
         Connection con = myConnection.getConnection();
-        String sql = "SELECT DISTINCT ThuongHieu FROM SanPham";
+        String sql = "SELECT ThuongHieu FROM SanPham";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);

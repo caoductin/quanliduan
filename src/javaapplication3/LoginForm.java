@@ -1,6 +1,8 @@
 
 package javaapplication3;
 
+import Database.myConnection;
+import dto.ManipulateComponents;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +15,79 @@ import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
 
+    
+    
+    public void LoginAdmin(){
+        ResultSet rs;
+        PreparedStatement ps;
+        try {
+            // TODO add your handling code here:
+            
+            Connection con = myConnection.getConnection();
+            ps = con.prepareStatement("SELECT * FROM `account` WHERE `id`=? AND `Password`=? And `type` = 1");
+            ps.setString(1, jTextFieldUserName.getText());
+            ps.setString(2,String.valueOf(jPasswordFieldLogin.getPassword()));
+            rs = ps.executeQuery();
+            if(rs.next()){
+            JOptionPane.showMessageDialog(rootPane, "Login");
+            ThongTinNhanVien_ThemNV supf = new ThongTinNhanVien_ThemNV ();
+            ManipulateComponents navigate = new ManipulateComponents();
+          
+            navigate.ChangeJframe(supf, this);
+               
+                
+             }
+            else{
+                JOptionPane.showMessageDialog(null,"User or Password is wrong");
+            }
+               
+            
+        } catch (Exception ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                                              
+
+        
+        
+        
+    }
+    public void LoginNhanVien(){
+        
+        ResultSet rs;
+        PreparedStatement ps;
+        try {
+            // TODO add your handling code here:
+            
+           
+            Connection con = myConnection.getConnection();
+            ps = con.prepareStatement("SELECT * FROM `account` WHERE `id`=? AND `Password`=? AND `type` = 2");
+            ps.setString(1, jTextFieldUserName.getText());
+            ps.setString(2,String.valueOf(jPasswordFieldLogin.getPassword()));
+            rs = ps.executeQuery();
+            if(rs.next()){
+            JOptionPane.showMessageDialog(rootPane, "Login");
+           ManipulateComponents navigate = new ManipulateComponents();
+           PhanCongNhanVien phanCong = new PhanCongNhanVien();
+           
+           phanCong.setIdNhanVien(Integer.parseInt(jTextFieldUserName.getText()));
+           phanCong.DisplayNgayLam();
+           navigate.ChangeJframe(phanCong, this);
+           
+           
+             }
+            else{
+                JOptionPane.showMessageDialog(null,"User or Password is wrong");
+            }
+               
+            
+        } catch (Exception ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                                              
+
+        }
+    
+    
     
     public LoginForm() {
         initComponents();
@@ -33,7 +108,7 @@ public class LoginForm extends javax.swing.JFrame {
         jTextFieldUserName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jCheckBoxShowPass = new javax.swing.JCheckBox();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxDangNhap = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jButtonCancel = new javax.swing.JButton();
         jButtonLogin = new javax.swing.JButton();
@@ -91,8 +166,8 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
+        jComboBoxDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jComboBoxDangNhap.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/User.png"))); // NOI18N
 
@@ -141,7 +216,7 @@ public class LoginForm extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(31, 31, 31)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -164,7 +239,7 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDangNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -235,41 +310,15 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUserNameActionPerformed
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        ResultSet rs;
-        PreparedStatement ps;
-        try {
-            // TODO add your handling code here:
+        if(jComboBoxDangNhap.getSelectedItem() == "User"){
+           
+            this.LoginNhanVien();
+            System.out.print(jTextFieldUserName.getText());
             
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanliduan", "root", "1234");
-              ps = con.prepareStatement("SELECT * FROM `account` WHERE `userName`=? AND `Password`=?");
-               ps.setString(1, jTextFieldUserName.getText());
-               ps.setString(2,String.valueOf(jPasswordFieldLogin.getPassword()));
-               rs = ps.executeQuery();
-               if(rs.next()){
-             JOptionPane.showMessageDialog(rootPane, "Login");
-                ThongTinNhanVien_ThemNV supf = new ThongTinNhanVien_ThemNV ();
-                supf.setVisible(true);//visible jfame 
-                supf.pack();
-                supf.setLocationRelativeTo(null);//set position cho jframe
-                
-              //  supf.setHeaderTable();
-            //    new ThongTinNhanVien_ThemNV().setVisible(true);
-                
-             //   supf.show_Nhanvien(); // this method will get the data from database and insert the data to table
-                
-          
-                supf.setDefaultCloseOperation(EXIT_ON_CLOSE);//ham nay khi dong se tat luon 
-                this.dispose();
-                
-             }
-            else{
-                JOptionPane.showMessageDialog(null,"User or Password is wrong");
-            }
-               
+        }
+        else{
+            this.LoginAdmin();
             
-        } catch (Exception ex) {
-            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
@@ -319,7 +368,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonLogin;
     private javax.swing.JCheckBox jCheckBoxShowPass;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxDangNhap;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

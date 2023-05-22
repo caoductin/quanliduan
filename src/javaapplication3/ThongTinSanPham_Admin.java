@@ -752,6 +752,11 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BACK1.png"))); // NOI18N
         jButton2.setText("Trở về");
         jButton2.setBorder(null);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -1440,6 +1445,13 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
                
                 xuli.ChangeJframe(supf, this);
     }//GEN-LAST:event_jLabelPhanCongMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        ManipulateComponents navigate = new ManipulateComponents();
+        LoginForm login = new LoginForm();
+        navigate.ChangeJframe(login, this);
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments

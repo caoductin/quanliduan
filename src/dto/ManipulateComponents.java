@@ -49,7 +49,7 @@ public class ManipulateComponents {
 //         Font font = new Font("Arial", Font.BOLD, 20); // create a new Font object
 //        name.getTableHeader().setFont(font);
         DefaultTableCellRenderer head_render = new CustomHeaderRenderer(); 
-        head_render.setBackground(new Color(204,153,255)); 
+        head_render.setBackground(new Color(152,238,240)); 
        // name.getTableHeader().setPreferredSize(new Dimension(name.getTableHeader().getWidth(),50)); //set the with and height for hearder table
 
         name.getTableHeader().setDefaultRenderer(head_render);//set color for header table

@@ -69,7 +69,20 @@ public class BangChonNhanVien extends javax.swing.JFrame {
      * 
      * Creates new form BangChonNhanVien
      */
- 
+      
+       
+       public void UPdateDataBase (){
+       try {
+            Connection con = myConnection.getConnection();
+            String query = "UPDATE `PhanCong` SET `TrangThai` = 'Hoan thanh' WHERE `NgayLam` < ? AND `TrangThai` = 'Chua hoan thanh';";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setDate(1, new java.sql.Date(new java.util.Date().getTime()));
+            int rowsUpdated = stmt.executeUpdate();
+            System.out.printf("Updated %d rows.%n", rowsUpdated);
+        } catch (SQLException ex) {
+            Logger.getLogger(BangChonNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       }
     
     
     
@@ -410,11 +423,10 @@ public class BangChonNhanVien extends javax.swing.JFrame {
 //            if( phancong.InsertPhanCong((String)jTableChonNhanVien.getValueAt(row, 0), this.caLam,DatePhanCong,selectedRows.length) == false){
 //                return ;
 //            }
-            System.out.print(jTableChonNhanVien.getValueAt(row, 0));
             
             
             this.setTenNhanVien((String)jTableChonNhanVien.getValueAt(row, 1));
-            System.out.print(this.getTenNhanVien());
+            this.UPdateDataBase();
 
             this.dispose();
         } else {

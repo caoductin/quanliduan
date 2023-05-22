@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author Le Q. Tien
@@ -44,6 +45,40 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         //   Thaotac.setHeaderTable(jTableEmployee);
 
     }
+    
+    public void CopyTable() {
+
+        try {
+            // Connect to the database
+            Connection con = myConnection.getConnection();
+
+            // Get the rows to copy from table 1
+            String selectQuery = "SELECT * FROM Nhanvien WHERE MaNV NOT IN (SELECT id FROM account)";
+            PreparedStatement selectStmt = con.prepareStatement(selectQuery);
+            ResultSet rowsToCopy = selectStmt.executeQuery();
+
+            // Copy rows to table 2
+            String insertQuery = "INSERT INTO account (id, Password) VALUES (?, ?)";
+            PreparedStatement insertStmt = con.prepareStatement(insertQuery);
+            while (rowsToCopy.next()) {
+                insertStmt.setString(1, rowsToCopy.getString("MaNV"));
+                insertStmt.setString(2, rowsToCopy.getString("Password"));
+          
+                insertStmt.executeUpdate();
+            }
+            
+            // Close statements and connection
+            selectStmt.close();
+            insertStmt.close();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+    }
+
+    
+        
 
     //tim kiem
     public void findDataNhanVien() {
@@ -709,6 +744,11 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/BACK1.png"))); // NOI18N
         jButton2.setText("Trở về");
         jButton2.setBorder(null);
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -1055,6 +1095,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     private void jButtonADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonADDActionPerformed
         // TODO add your handling code here:
         this.getDataNhanVienFromDataBase();
+        this.CopyTable();
 
     }//GEN-LAST:event_jButtonADDActionPerformed
 
@@ -1212,6 +1253,13 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         xuli.ChangeJframe(supf, this);
 
     }//GEN-LAST:event_jPanel9MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        ManipulateComponents navigate = new ManipulateComponents();
+        LoginForm login = new LoginForm();
+        navigate.ChangeJframe(login, this);
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments

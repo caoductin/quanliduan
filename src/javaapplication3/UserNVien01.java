@@ -202,7 +202,7 @@ public class UserNVien01 extends javax.swing.JFrame {
             .addGroup(jPanelEmployeeLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel11)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanelCustomers.setBackground(new java.awt.Color(51, 52, 72));
@@ -240,7 +240,7 @@ public class UserNVien01 extends javax.swing.JFrame {
             .addGroup(jPanelCustomersLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel12)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanelProducts.setBackground(new java.awt.Color(51, 52, 72));
