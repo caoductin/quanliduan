@@ -56,7 +56,7 @@ public class XuatHD {
             ResultSet resultSet = statement.executeQuery();
 
             // Tạo Workbook từ template
-            FileInputStream templateFile = new FileInputStream("D:\\BTLJava\\quanliduan\\src\\Report\\HoaDon.xlsx");
+            FileInputStream templateFile = new FileInputStream("C:\\Users\\Acer PV\\OneDrive\\Desktop\\GitClone\\quanliduan\\src\\Report\\HoaDon.xlsx");
             Workbook workbook = new XSSFWorkbook(templateFile);
             Sheet sheet = workbook.getSheet("HoaDon");
 
