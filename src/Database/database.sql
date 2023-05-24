@@ -1,13 +1,38 @@
 Drop database quanliduan;
 create database quanliduan;
 use quanliduan ;
-CREATE TABLE IF NOT EXISTS `quanliduan`.`account` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+ -- chen dữ liều
+  CREATE TABLE IF NOT EXISTS `quanliduan`.`Nhanvien` (
+  `MaNV` INT UNSIGNED NOT NULL,
+  `Hoten` VARCHAR(45) NOT NULL,
+  `CCCD` VARCHAR(45) NOT NULL,
+  `Gioitinh` VARCHAR(45) NOT NULL,
+  `Ngaysinh` DATE NOT NULL,
+  `DiaChi` VARCHAR(45) NOT NULL,
+  `ChucVu` VARCHAR(45) NOT NULL,
+  `SDT` VARCHAR(45) NOT NULL,
   `Password` VARCHAR(45) NOT NULL,
-  `type` INT NOT NULL DEFAULT '2',
+  `NgayBatDau` DATE NOT NULL,
+  `hinhanh` BLOB NOT NULL,
+  PRIMARY KEY (`MaNV`),
+  UNIQUE INDEX `CCCD_UNIQUE` (`CCCD` ASC) VISIBLE);
+  
+  
+  
+CREATE TABLE IF NOT EXISTS `quanliduan`.`account` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Password` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`),
-   CHECK (`type` IN (1, 2)));
+   FOREIGN KEY (id) REFERENCES Nhanvien(MaNV)
+   );
 
+CREATE TABLE admin_account (
+    id INT PRIMARY KEY,
+
+    password VARCHAR(30) NOT NULL
+);
+
+INSERT INTO `quanliduan`.`admin_account` (`id`, `password`) VALUES ('1000', 'admin');
 
  CREATE TABLE `quanliduan`.`SanPham` (
   `MaSanPham` INT NOT NULL,
@@ -42,32 +67,8 @@ CREATE TABLE `quanliduan`.`Image` (
   PRIMARY KEY (`MaSanPham`, `TenHinhAnh`));
   
   
-  
- 
-  
-  -- chen dữ liều
-  CREATE TABLE IF NOT EXISTS `quanliduan`.`Nhanvien` (
-  `MaNV` INT UNSIGNED NOT NULL,
-  `Hoten` VARCHAR(45) NOT NULL,
-  `CCCD` VARCHAR(45) NOT NULL,
-  `Gioitinh` VARCHAR(45) NOT NULL,
-  `Ngaysinh` DATE NOT NULL,
-  `DiaChi` VARCHAR(45) NOT NULL,
-  `ChucVu` VARCHAR(45) NOT NULL,
-  `SDT` VARCHAR(45) NOT NULL,
-  `Password` VARCHAR(45) NOT NULL,
-  `NgayBatDau` DATE NOT NULL,
-  PRIMARY KEY (`MaNV`),
-  UNIQUE INDEX `CCCD_UNIQUE` (`CCCD` ASC) VISIBLE);
-  
-  
-  
-
-INSERT INTO `quanliduan`.`account` (`id`, `Password`,`type`) VALUES ('1', '123123','1');
 
 
-
-drop table  hoadon;
  CREATE TABLE `quanliduan`.`HoaDon`(
 	ID INT PRIMARY KEY,
     NgayLap DATE,
@@ -100,9 +101,9 @@ INSERT INTO `quanliduan`.`hoadon` (`ID`, `NgayLap`) VALUES ('12347', '2023-9-10'
   );
 UPDATE ChiTietHoaDon SET TongTien = GiaBan * SoLuong;
 
-INSERT INTO `quanliduan`.`Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`) VALUES ('2003', 'Nguyen thanh tuan', '5998342', 'Nam', '2003-03-02', '7774', 'Nhân viên bán hàng', '384823', '47858974', '2023-04-01');
-INSERT INTO `quanliduan`.`Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`) VALUES ('2004', 'Vo van luy', '823848', 'Nữ', '2003-01-01', '83823', 'Không chọn', '23848923', '7818932', '2003-12-12');
-INSERT INTO `quanliduan`.`Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`) VALUES ('2005', 'Nguyen thanh huy', '234234', 'Nam', '2006-01-08', '888384', 'Nhân viên bán hàng', '832489212', '889048957', '2023-04-01');
+-- INSERT INTO `quanliduan`.`Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`) VALUES ('2003', 'Nguyen thanh tuan', '5998342', 'Nam', '2003-03-02', '7774', 'Nhân viên bán hàng', '384823', '47858974', '2023-04-01');
+-- INSERT INTO `quanliduan`.`Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`) VALUES ('2004', 'Vo van luy', '823848', 'Nữ', '2003-01-01', '83823', 'Không chọn', '23848923', '7818932', '2003-12-12');
+-- INSERT INTO `quanliduan`.`Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`) VALUES ('2005', 'Nguyen thanh huy', '234234', 'Nam', '2006-01-08', '888384', 'Nhân viên bán hàng', '832489212', '889048957', '2023-04-01');
 
   -- chen dữ liều
 INSERT INTO `quanliduan`.`sanpham` (`MaSanPham`, `TenSanPham`, `LoaiSanPham`, `ThuongHieu`, `SoLuong`, `GiaBan`, `NgayNhap`) VALUES ('4488', 'chuột gaming', 'chuột', 'logitech', '300', '700000', '2023-05-11');
@@ -125,3 +126,14 @@ SET thanhtien = (
   FROM chitiethoadon
   WHERE chitiethoadon.id = hoadon.id
 );
+
+SELECT Nhanvien.MaNV, Nhanvien.Hoten,
+  COUNT(CASE WHEN PhanCong.TrangThai = 'hoan thanh' THEN 1 END) AS SoHoanThanh,
+  COUNT(CASE WHEN PhanCong.TrangThai = 'chua hoan thanh' THEN 1 END) AS SoChuaHoanThanh,
+  COUNT(CASE WHEN PhanCong.TrangThai = 'khong hoan thanh' THEN 1 END) AS SoKhongHoanThanh,
+  COUNT(CASE WHEN PhanCong.TrangThai = 'hoan thanh' THEN 1 END) * 20000 AS luong
+FROM Nhanvien
+LEFT JOIN PhanCong ON Nhanvien.MaNV = PhanCong.MaNV
+WHERE MONTH(PhanCong.NgayLam) = MONTH(CURDATE())
+AND YEAR(PhanCong.NgayLam) = YEAR(CURDATE())
+GROUP BY Nhanvien.MaNV;

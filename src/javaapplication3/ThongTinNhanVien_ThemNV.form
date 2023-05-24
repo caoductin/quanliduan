@@ -496,7 +496,7 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelHanhNV" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
@@ -651,7 +651,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonADD" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel18" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
+                          <Component id="jLabelHanhNV" alignment="1" min="-2" pref="230" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="41" max="32767" attributes="0"/>
                   </Group>
@@ -659,12 +659,15 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel18">
+            <Component class="javax.swing.JLabel" name="jLabelHanhNV">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Image/USER1.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabelHanhNVMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
@@ -844,10 +847,9 @@
             <Component class="javax.swing.JComboBox" name="jComboBoxChucVu">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="Kh&#xf4;ng ch&#x1ecd;n"/>
-                    <StringItem index="1" value="Nh&#xe2;n vi&#xea;n b&#xe1;n h&#xe0;ng"/>
-                    <StringItem index="2" value="Nh&#xe2;n vi&#xea;n s&#x1eed;a ch&#x1eef;a"/>
+                  <StringArray count="2">
+                    <StringItem index="0" value="Nh&#xe2;n vi&#xea;n b&#xe1;n h&#xe0;ng"/>
+                    <StringItem index="1" value="Nh&#xe2;n vi&#xea;n s&#x1eed;a ch&#x1eef;a"/>
                   </StringArray>
                 </Property>
               </Properties>

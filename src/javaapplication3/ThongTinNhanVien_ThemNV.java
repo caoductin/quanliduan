@@ -10,7 +10,12 @@ import dto.NhanVien;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Menu;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +26,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +44,8 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     /**
      * Creates new form DanhSachNhanVien
      */
+    
+    
     public ThongTinNhanVien_ThemNV() {
         initComponents();
 
@@ -46,6 +57,43 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
 
     }
     
+    
+    //----------------------------------------------------------------------------------------------
+    private static Image getImageFromIcon(Icon icon) {
+            if (icon != null && icon instanceof ImageIcon) {
+                return ((ImageIcon) icon).getImage();
+            }
+            return null;
+        }
+    
+    
+    public byte[] covertJlabelToByte(JLabel name) throws IOException{
+                
+        Image image1 = getImageFromIcon(name.getIcon());
+        byte[] imageBytes1 = imageToBytes(image1);
+        
+        return imageBytes1;
+        
+        
+        
+    }
+    
+    
+        //----------------------------------------------------------------------------------------------
+     private static byte[] imageToBytes(Image image) throws IOException { //chuyển đổi hình anh sang byte
+            if (image != null) {
+                BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
+                        BufferedImage.TYPE_INT_RGB);
+                bufferedImage.getGraphics().drawImage(image, 0, 0, null);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(bufferedImage, "jpg", baos);
+                baos.flush();
+                byte[] imageBytes = baos.toByteArray();
+                baos.close();
+                return imageBytes;
+            }
+            return null;
+     }
     public void CopyTable() {
 
         try {
@@ -101,7 +149,69 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         this.show_Nhanvien(sql);
 
     }
+    
+    
+    //----------------------------------------------------------------------------------------------
+    public void getDataWhenClick(int row){
+          
 
+        jTextFieldMaNV.setText(jTableEmployee.getValueAt(row, 0).toString());
+
+        IDNhanvien.setText(jTableEmployee.getValueAt(row, 0).toString());
+        IDNhanvien.setVisible(true);
+        System.out.print(IDNhanvien.getText());
+
+        jTextFieldMaNV.setVisible(false);
+
+        jTextFieldHoTen.setText(jTableEmployee.getValueAt(row, 1).toString());
+
+        String Gioitinh = jTableEmployee.getValueAt(row, 3).toString();
+        System.out.print(Gioitinh);
+        if (jRadioButtonNam.getText().equals(Gioitinh)) {
+            jRadioButtonNam.setSelected(true);
+
+        } else {
+            jRadioButtonNu.setSelected(true);
+        }
+
+        jTextFieldCCCD.setText(jTableEmployee.getValueAt(row, 2).toString());
+
+        String dateNSSV = jTableEmployee.getValueAt(row, 4).toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = dateFormat.parse(dateNSSV);
+            jDateChooserNSNV.setDate((date));
+        } catch (ParseException ex) {
+            Logger.getLogger(ThongTinNhanVien_ThemNV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // jDateChooserNSNV.setDate((Date) date.getValueAt(row,4));
+        jTextFieldDiaChi.setText(jTableEmployee.getValueAt(row, 5).toString());
+        jComboBoxChucVu.setSelectedItem(jTableEmployee.getValueAt(row, 6).toString());
+        jTextFieldSDT.setText(jTableEmployee.getValueAt(row, 7).toString());
+        PassWordNv.setText(jTableEmployee.getValueAt(row, 8).toString());
+        String dateNBD = jTableEmployee.getValueAt(row, 9).toString();
+        String sql = "SELECT * FROM Nhanvien Where MaNV = "+ IDNhanvien.getText();
+        ArrayList<NhanVien> list = userList(sql);
+        try {
+            // Convert the byte[] array to a BufferedImage object
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(list.get(0).getImageData()));
+            ImageIcon icon = new ImageIcon(image.getScaledInstance(jLabelHanhNV.getWidth(), jLabelHanhNV.getHeight(), Image.SCALE_SMOOTH));
+            jLabelHanhNV.setIcon(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(ThongTinNhanvien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+        try {
+            Date date = dateFormat.parse(dateNBD);
+            jDateChooserNBD.setDate((date));
+        } catch (ParseException ex) {
+            Logger.getLogger(ThongTinNhanVien_ThemNV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -134,7 +244,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jPanelThemNV = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
+        jLabelHanhNV = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -408,7 +518,12 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jPanelThemNV.add(jLabel8);
         jLabel8.setBounds(1331, 52, 200, 230);
 
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/USER1.png"))); // NOI18N
+        jLabelHanhNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/USER1.png"))); // NOI18N
+        jLabelHanhNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelHanhNVMouseClicked(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel19.setText("Thông tin nhân viên");
@@ -507,7 +622,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         jLabel31.setFocusable(false);
         jLabel31.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jComboBoxChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Không chọn", "Nhân viên bán hàng", "Nhân viên sửa chữa" }));
+        jComboBoxChucVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên bán hàng", "Nhân viên sửa chữa" }));
 
         buttonGroup1.add(jRadioButtonNam);
         jRadioButtonNam.setText("Nam");
@@ -539,7 +654,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
                         .addComponent(jLabel19))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel18)
+                        .addComponent(jLabelHanhNV)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -654,7 +769,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
                             .addComponent(jDateChooserNBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonADD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelHanhNV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -1050,9 +1165,9 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
             st = con.createStatement();
             //  DefaultTableModel tblModel = (DefaultTableModel) jTableEmployee.getModel();
 
-            String sql = "UPdate Nhanvien set  Hoten =?, CCCD = ?, Gioitinh=?, Ngaysinh=?, DiaChi=?, ChucVu=?, SDT=?, Password=?, NgayBatDau=? where MaNV = ?";
+            String sql = "UPdate Nhanvien set  Hoten =?, CCCD = ?, Gioitinh=?, Ngaysinh=?, DiaChi=?, ChucVu=?, SDT=?, Password=?, NgayBatDau=?, hinhanh =? where MaNV = ?";
             ps = con.prepareStatement(sql);
-            ps.setString(10, jTextFieldMaNV.getText());
+            ps.setString(11, jTextFieldMaNV.getText());
             ps.setString(1, jTextFieldHoTen.getText());
             ps.setString(2, jTextFieldCCCD.getText());
             if (jRadioButtonNam.isSelected()) {
@@ -1074,6 +1189,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
             String NgayBD = sdf1.format(jDateChooserNBD.getDate());
 
             ps.setString(9, NgayBD);
+            ps.setBytes(10, covertJlabelToByte(jLabelHanhNV));
             if (ps.executeUpdate() == 1) {//this function will returns a value other than 0 when it execute suscessf . otherwise it return 
                 JOptionPane.showMessageDialog(this, "You create succesful ");
                 clearTable(); // delete the duplicate because when you click "Thêm  " then it will be duplicate 
@@ -1120,50 +1236,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     private void jTableEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmployeeMouseClicked
         // TODO add your handling code here:// when i click the table . it will show the data to jtextField
         int row = jTableEmployee.rowAtPoint(evt.getPoint());
-
-        jTextFieldMaNV.setText(jTableEmployee.getValueAt(row, 0).toString());
-
-        IDNhanvien.setText(jTableEmployee.getValueAt(row, 0).toString());
-        IDNhanvien.setVisible(true);
-        System.out.print(IDNhanvien.getText());
-
-        jTextFieldMaNV.setVisible(false);
-
-        jTextFieldHoTen.setText(jTableEmployee.getValueAt(row, 1).toString());
-
-        String Gioitinh = jTableEmployee.getValueAt(row, 3).toString();
-        System.out.print(Gioitinh);
-        if (jRadioButtonNam.getText().equals(Gioitinh)) {
-            jRadioButtonNam.setSelected(true);
-
-        } else {
-            jRadioButtonNu.setSelected(true);
-        }
-
-        jTextFieldCCCD.setText(jTableEmployee.getValueAt(row, 2).toString());
-
-        String dateNSSV = jTableEmployee.getValueAt(row, 4).toString();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date date = dateFormat.parse(dateNSSV);
-            jDateChooserNSNV.setDate((date));
-        } catch (ParseException ex) {
-            Logger.getLogger(ThongTinNhanVien_ThemNV.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        // jDateChooserNSNV.setDate((Date) date.getValueAt(row,4));
-        jTextFieldDiaChi.setText(jTableEmployee.getValueAt(row, 5).toString());
-        jComboBoxChucVu.setSelectedItem(jTableEmployee.getValueAt(row, 6).toString());
-        jTextFieldSDT.setText(jTableEmployee.getValueAt(row, 7).toString());
-        PassWordNv.setText(jTableEmployee.getValueAt(row, 8).toString());
-        String dateNBD = jTableEmployee.getValueAt(row, 9).toString();
-
-        try {
-            Date date = dateFormat.parse(dateNBD);
-            jDateChooserNBD.setDate((date));
-        } catch (ParseException ex) {
-            Logger.getLogger(ThongTinNhanVien_ThemNV.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.getDataWhenClick(row);
     }//GEN-LAST:event_jTableEmployeeMouseClicked
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
@@ -1261,6 +1334,12 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
         navigate.ChangeJframe(login, this);
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void jLabelHanhNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHanhNVMouseClicked
+        // TODO add your handling code here:
+        NhanVien SanPham = new NhanVien();
+        SanPham.uploadImageNhanvien(jLabelHanhNV, this);
+    }//GEN-LAST:event_jLabelHanhNVMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1306,7 +1385,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
                 st = con.createStatement();
                 //  DefaultTableModel tblModel = (DefaultTableModel) jTableEmployee.getModel();
 
-                String sql = "INSERT INTO `Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO `Nhanvien` (`MaNV`, `Hoten`, `CCCD`, `Gioitinh`, `Ngaysinh`, `DiaChi`, `ChucVu`, `SDT`, `Password`, `NgayBatDau`,`hinhanh`) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 ps = con.prepareStatement(sql);
                 ps.setString(1, jTextFieldMaNV.getText());
                 ps.setString(2, jTextFieldHoTen.getText());
@@ -1325,6 +1404,8 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
                 ps.setString(7, (String) jComboBoxChucVu.getSelectedItem());
                 ps.setString(8, jTextFieldSDT.getText());
                 ps.setString(9, PassWordNv.getText());
+                ps.setBytes(11, covertJlabelToByte(jLabelHanhNV));
+                
 
                 SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
                 String NgayBD = sdf1.format(jDateChooserNBD.getDate());
@@ -1383,7 +1464,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
             while (rs.next()) {
                 nhanvien = new NhanVien(rs.getInt("MaNV"), rs.getString("Hoten"), rs.getString("CCCD"), rs.getString("Gioitinh"), rs.getDate("Ngaysinh"), rs.getString("DiaChi"),
                          rs.getString("ChucVu"), rs.getString("SDT"), rs.getString("PassWord"), rs.getDate("NgayBatDau"));
-
+                nhanvien.setImageData(rs.getBytes("hinhanh"));
                 usersList.add(nhanvien);//add all data to userlist
 
             }
@@ -1541,7 +1622,6 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1560,6 +1640,7 @@ public class ThongTinNhanVien_ThemNV extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelHanhNV;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

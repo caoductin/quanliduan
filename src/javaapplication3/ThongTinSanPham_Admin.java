@@ -324,7 +324,6 @@ public class ThongTinSanPham_Admin extends javax.swing.JFrame {
             while (rs.next()) {
                 Blob blob = rs.getBlob("hinhanh");
                 String nameImage = rs.getString("TenHinhAnh");
-                System.out.println(nameImage);
                //Step 3: Create ImageIcon object from Blob
                 byte[] data = blob.getBytes(1, (int) blob.length());
                 ImageIcon imageIcon = new ImageIcon(data);

@@ -173,7 +173,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="260" y="80" width="1140" height="160"/>
+          <AbsoluteConstraints x="180" y="80" width="1220" height="160"/>
         </Constraint>
       </Constraints>
 
@@ -349,17 +349,20 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="270" y="250" width="480" height="510"/>
+          <AbsoluteConstraints x="180" y="240" width="570" height="520"/>
         </Constraint>
       </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane3" pref="466" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane3" min="-2" pref="562" max="-2" attributes="0"/>
+                      </Group>
                       <Group type="102" attributes="0">
                           <Component id="cbbLoaiSP" min="-2" pref="109" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -385,8 +388,8 @@
                       <Component id="btnTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane3" min="-2" pref="464" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" pref="468" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -429,6 +432,9 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tblSanPham">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Helvetica Neue" size="15" style="1"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="0">
                     <Column editable="false" title="M&#xe3;" type="java.lang.Object"/>
@@ -680,7 +686,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="25" max="32767" attributes="0"/>
+                      <EmptySpace pref="28" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -730,7 +736,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

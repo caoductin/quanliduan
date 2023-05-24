@@ -1,4 +1,3 @@
-
 package javaapplication3;
 
 import Database.myConnection;
@@ -12,90 +11,73 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
 public class LoginForm extends javax.swing.JFrame {
 
-    
-    
-    public void LoginAdmin(){
+    public void LoginAdmin() {
         ResultSet rs;
         PreparedStatement ps;
         try {
             // TODO add your handling code here:
-            
+
             Connection con = myConnection.getConnection();
-            ps = con.prepareStatement("SELECT * FROM `account` WHERE `id`=? AND `Password`=? And `type` = 1");
+            ps = con.prepareStatement("SELECT * FROM `admin_account` WHERE `id`=? AND `Password`=?");
             ps.setString(1, jTextFieldUserName.getText());
-            ps.setString(2,String.valueOf(jPasswordFieldLogin.getPassword()));
+            ps.setString(2, String.valueOf(jPasswordFieldLogin.getPassword()));
             rs = ps.executeQuery();
-            if(rs.next()){
-            JOptionPane.showMessageDialog(rootPane, "Login");
-            ThongTinNhanVien_ThemNV supf = new ThongTinNhanVien_ThemNV ();
-            ManipulateComponents navigate = new ManipulateComponents();
-          
-            navigate.ChangeJframe(supf, this);
-               
-                
-             }
-            else{
-                JOptionPane.showMessageDialog(null,"User or Password is wrong");
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(rootPane, "Login");
+                ThongTinNhanVien_ThemNV supf = new ThongTinNhanVien_ThemNV();
+                ManipulateComponents navigate = new ManipulateComponents();
+
+                navigate.ChangeJframe(supf, this);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "User or Password is wrong");
             }
-               
-            
+
         } catch (Exception ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-                                              
 
-        
-        
-        
     }
-    public void LoginNhanVien(){
-        
+
+    public void LoginNhanVien() {
+
         ResultSet rs;
         PreparedStatement ps;
         try {
             // TODO add your handling code here:
-            
-           
+
             Connection con = myConnection.getConnection();
-            ps = con.prepareStatement("SELECT * FROM `account` WHERE `id`=? AND `Password`=? AND `type` = 2");
+            ps = con.prepareStatement("SELECT * FROM `account` WHERE `id`=? AND `Password`=?");
             ps.setString(1, jTextFieldUserName.getText());
-            ps.setString(2,String.valueOf(jPasswordFieldLogin.getPassword()));
+            ps.setString(2, String.valueOf(jPasswordFieldLogin.getPassword()));
             rs = ps.executeQuery();
-            if(rs.next()){
-            JOptionPane.showMessageDialog(rootPane, "Login");
-           ManipulateComponents navigate = new ManipulateComponents();
-           PhanCongNhanVien phanCong = new PhanCongNhanVien();
-           
-           phanCong.setIdNhanVien(Integer.parseInt(jTextFieldUserName.getText()));
-           phanCong.DisplayNgayLam();
-           navigate.ChangeJframe(phanCong, this);
-           
-           
-             }
-            else{
-                JOptionPane.showMessageDialog(null,"User or Password is wrong");
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(rootPane, "Login");
+                ManipulateComponents navigate = new ManipulateComponents();
+                PhanCongNhanVien phanCong = new PhanCongNhanVien();
+
+                phanCong.setIdNhanVien(Integer.parseInt(jTextFieldUserName.getText()));
+                phanCong.LoadData();
+                navigate.ChangeJframe(phanCong, this);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "User or Password is wrong");
             }
-               
-            
+
         } catch (Exception ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-                                              
 
-        }
-    
-    
-    
+    }
+
     public LoginForm() {
         initComponents();
         //center form
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -252,9 +234,9 @@ public class LoginForm extends javax.swing.JFrame {
                         .addComponent(jCheckBoxShowPass))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(46, 46, 46)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addGap(21, 21, 21))
@@ -285,19 +267,18 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void jCheckBoxShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxShowPassActionPerformed
         // TODO add your handling code here:
-        if(jCheckBoxShowPass.isSelected()){
-            jPasswordFieldLogin.setEchoChar((char)0);
-            
-        }
-        else{
-            
+        if (jCheckBoxShowPass.isSelected()) {
+            jPasswordFieldLogin.setEchoChar((char) 0);
+
+        } else {
+
             jPasswordFieldLogin.setEchoChar('*');
         }
     }//GEN-LAST:event_jCheckBoxShowPassActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-         SignUpForm supf = new SignUpForm();
+        SignUpForm supf = new SignUpForm();
         supf.setVisible(true);//visible jfame 
         supf.pack();
         supf.setLocationRelativeTo(null);//set position cho jframe
@@ -310,15 +291,14 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUserNameActionPerformed
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        if(jComboBoxDangNhap.getSelectedItem() == "User"){
-           
+        if (jComboBoxDangNhap.getSelectedItem() == "User") {
+
             this.LoginNhanVien();
             System.out.print(jTextFieldUserName.getText());
-            
-        }
-        else{
+
+        } else {
             this.LoginAdmin();
-            
+
         }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
