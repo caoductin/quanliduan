@@ -1114,6 +1114,7 @@ public class ThongTinSanPham_NhanVien extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableSanPham.setRowHeight(40);
         jTableSanPham.getTableHeader().setReorderingAllowed(false);
         jTableSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

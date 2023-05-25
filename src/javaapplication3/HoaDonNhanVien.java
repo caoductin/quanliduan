@@ -30,6 +30,11 @@ public class HoaDonNhanVien extends javax.swing.JFrame {
         this.idNhanvien = idnhanvien;
         
     }
+    public void getIDnhanvien(){
+        
+        System.out.print("this is a id nhan vien"+ idNhanvien);
+    }
+
     public HoaDonNhanVien() {
         initComponents();
         this.setLocationRelativeTo(null);

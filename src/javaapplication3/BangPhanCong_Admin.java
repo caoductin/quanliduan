@@ -198,6 +198,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jDateChooserLaplich = new com.toedter.calendar.JDateChooser();
         jButtonLapLich = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jPanelEmployee = new javax.swing.JPanel();
@@ -503,6 +504,18 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         jPanel4.add(jButtonLapLich);
         jButtonLapLich.setBounds(1000, 50, 80, 30);
 
+        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 0, 15)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Xem Bảng Lương ");
+        jLabel7.setOpaque(true);
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        jPanel4.add(jLabel7);
+        jLabel7.setBounds(950, 100, 130, 30);
+
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 1220, 720));
 
         jPanel3.setBackground(new java.awt.Color(51, 52, 72));
@@ -678,7 +691,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
                     .addComponent(jPanelEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanelProducts, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jPanelProducts, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, Short.MAX_VALUE)
                         .addComponent(jPanelCustomers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -1089,6 +1102,14 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
         navigate.ChangeJframe(login, this);
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+        ManipulateComponents xuli = new ManipulateComponents();
+        BangLuongAdmin bangluong = new BangLuongAdmin();
+        xuli.ChangeJframe(bangluong, this);
+        
+    }//GEN-LAST:event_jLabel7MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1156,6 +1177,7 @@ public class BangPhanCong_Admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

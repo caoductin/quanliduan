@@ -46,8 +46,8 @@ public class ManipulateComponents {
     
      public void setHeaderTable(JTable name){//set header table
     
-//         Font font = new Font("Arial", Font.BOLD, 20); // create a new Font object
-//        name.getTableHeader().setFont(font);
+         Font font = new Font("Arial", Font.BOLD, 17); // create a new Font object
+        name.getTableHeader().setFont(font);
         DefaultTableCellRenderer head_render = new CustomHeaderRenderer(); 
         head_render.setBackground(new Color(152,238,240)); 
        // name.getTableHeader().setPreferredSize(new Dimension(name.getTableHeader().getWidth(),50)); //set the with and height for hearder table

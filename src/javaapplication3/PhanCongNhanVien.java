@@ -768,9 +768,10 @@ public class PhanCongNhanVien extends javax.swing.JFrame {
 
     private void jPanelHoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelHoadonMouseClicked
         // TODO add your handling code here:
-          ManipulateComponents navigate = new ManipulateComponents();
+        ManipulateComponents navigate = new ManipulateComponents();
         HoaDonNhanVien login = new HoaDonNhanVien();
         login.setIDNhanvien(idNhanVien);
+        login.getIDnhanvien();
         navigate.ChangeJframe(login, this);
     }//GEN-LAST:event_jPanelHoadonMouseClicked
 
